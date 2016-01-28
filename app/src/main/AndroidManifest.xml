@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:name=".application.GankApplication"
         android:allowBackup="true"
@@ -31,7 +32,11 @@
         <activity
             android:name=".activity.WebViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.ShowBigImageActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
+        <service android:name=".PrefetchService" />
     </application>
 
 </manifest>

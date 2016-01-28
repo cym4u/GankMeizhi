@@ -1,6 +1,7 @@
 package cn.chenyuanming.gankmeizhi.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.chenyuanming.gankmeizhi.R;
+import cn.chenyuanming.gankmeizhi.activity.ShowBigImageActivity;
 import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
 
 /**
@@ -44,7 +46,11 @@ public class MeizhiAdapter extends RecyclerView.Adapter<MeizhiAdapter.MeizhiView
 //        meizhiViewHolder.imageView.setImageResource(mDatas.get(position).getImg());
         Glide.with(context).load(mDatas.get(position).url).diskCacheStrategy(DiskCacheStrategy.ALL).into(meizhiViewHolder.imageView);
         meizhiViewHolder.textView.setText(mDatas.get(position).desc);
-
+        meizhiViewHolder.imageView.setOnClickListener((v) -> {
+            Intent intent = new Intent(context, ShowBigImageActivity.class);
+            intent.putExtra("url", mDatas.get(position).url);
+            context.startActivity(intent);
+        });
     }
 
     @Override

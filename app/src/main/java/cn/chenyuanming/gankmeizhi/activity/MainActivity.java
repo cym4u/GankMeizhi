@@ -1,5 +1,6 @@
 package cn.chenyuanming.gankmeizhi.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.chenyuanming.gankmeizhi.PrefetchService;
 import cn.chenyuanming.gankmeizhi.R;
 import cn.chenyuanming.gankmeizhi.fragment.GankFragment;
 
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         viewPager.setCurrentItem(getIntent().getIntExtra(EXTRA_FRAG_TYPE, DEFAULT_FRAG));
         tabLayout.setupWithViewPager(viewPager);
+        startService(new Intent(this, PrefetchService.class));
     }
 
     @Override
@@ -102,12 +105,26 @@ public class MainActivity extends AppCompatActivity {
                                 viewPager.setCurrentItem(3);
                                 drawerLayout.closeDrawers();
                                 return true;
+                            case R.id.nav_github:
+                                drawerLayout.closeDrawers();
+                                jump2Url("https://github.com/login");
+                                return true;
+                            case R.id.nav_trending:
+                                drawerLayout.closeDrawers();
+                                jump2Url("https://github.com/trending?l=java");
+                                return true;
 
                             default:
                                 return true;
                         }
                     }
                 });
+    }
+
+    private void jump2Url(String value) {
+        Intent intent = new Intent(MainActivity.this, WebViewActivity.class);
+        intent.putExtra("url", value);
+        startActivity(intent);
     }
 
     static class Adapter extends FragmentPagerAdapter {

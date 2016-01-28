@@ -4,13 +4,12 @@
     <string name="nav_mm">妹纸</string>
     <string name="nav_android">Android</string>
     <string name="nav_ios">iOS</string>
-
-
-
+    <string name="nav_github_login">GitHub</string>
+    <string name="nav_trending">Trending</string>
 
 
     <string name="action_settings">Settings</string>
-	    <string name="ipsum_short">Android rocks!</string>
+    <string name="ipsum_short">Android rocks!</string>
     <string name="ipsum_med">Android has 80% of global market-share</string>
     <string name="ipsum_long">Open-source software is changing the world.  Android is making great things possible.</string>
 

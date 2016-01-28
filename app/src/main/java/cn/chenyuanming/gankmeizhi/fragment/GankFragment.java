@@ -16,6 +16,9 @@ import android.widget.Toast;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -28,6 +31,7 @@ import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
 import cn.chenyuanming.gankmeizhi.constants.Constants;
 import cn.chenyuanming.gankmeizhi.decoration.SpacesItemDecoration;
 import cn.chenyuanming.gankmeizhi.utils.DbHelper;
+import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
@@ -70,7 +74,23 @@ public class GankFragment extends Fragment {
         setupSwipeRefreshLayout();
         currentPage = Constants.START;
         loadData(currentPage);
+        prefetch();
+
         return view;
+    }
+
+    private void prefetch() {
+        GankApi.getInstance().getBenefitsGoods(limit,currentPage).subscribe(goodsBean -> {
+            Observable.from(goodsBean.results).subscribe(results ->{
+                //每天的结果
+                try {
+                    Date date =  new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(results.updatedAt);
+                    Log.d(TAG, "onCreate: "+date.toLocaleString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } );
+        });
     }
 
     private void setupSwipeRefreshLayout() {

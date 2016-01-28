@@ -15,6 +15,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.chenyuanming.gankmeizhi.R;
+import cn.chenyuanming.gankmeizhi.activity.ShowBigImageActivity;
 import cn.chenyuanming.gankmeizhi.activity.WebViewActivity;
 import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
 import cn.chenyuanming.gankmeizhi.beans.ReadArticles;
@@ -51,7 +52,8 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
 
     Context context;
     int fragType;
-    ReadArticles readArticles ;
+    ReadArticles readArticles;
+
     public ArticleViewAdapter(Context context, List<GoodsBean.Results> items, int fragType) {
         this.context = context;
         if (items != null) {
@@ -59,10 +61,10 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         }
         this.fragType = fragType;
         List<ReadArticles> list = DbHelper.getHelper().getData(ReadArticles.class);
-        if(list.size()==0){
+        if (list.size() == 0) {
             readArticles = new ReadArticles();
             DbHelper.getHelper().getLiteOrm().save(readArticles);
-        }else{
+        } else {
             readArticles = list.get(0);
         }
     }
@@ -84,15 +86,25 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         } else {
             holder.mTextView.setTextColor(context.getResources().getColor(R.color.black));
         }
-        holder.mTextView.setOnClickListener(v -> {
-            holder.mTextView.setTextColor(context.getResources().getColor(R.color.lightBlack));
+        if (data.type.equals("福利")) {
+            holder.mTextView.setOnClickListener((v) -> {
+                Intent intent = new Intent(context, ShowBigImageActivity.class);
+                intent.putExtra("url", mDatas.get(position).url);
+                context.startActivity(intent);
+            });
+        } else {
 
-            Intent intent = new Intent(context, WebViewActivity.class);
-            intent.putExtra("url", mDatas.get(position).url);
-            context.startActivity(intent);
-            readArticles.articles.add(data.objectId);
-            DbHelper.getHelper().getLiteOrm().save(readArticles);
-        });
+            holder.mTextView.setOnClickListener(v -> {
+                holder.mTextView.setTextColor(context.getResources().getColor(R.color.lightBlack));
+
+                Intent intent = new Intent(context, WebViewActivity.class);
+                intent.putExtra("url", mDatas.get(position).url);
+                context.startActivity(intent);
+                readArticles.articles.add(data.objectId);
+                DbHelper.getHelper().getLiteOrm().save(readArticles);
+            });
+        }
+
     }
 
     @Override
