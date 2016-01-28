@@ -64,7 +64,7 @@ public class GankFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_prod_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_article_list, container, false);
         ButterKnife.bind(this, view);
         setupAdapter();
         setupSwipeRefreshLayout();

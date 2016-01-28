@@ -32,7 +32,7 @@ public class WebViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_webview);
+        setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);

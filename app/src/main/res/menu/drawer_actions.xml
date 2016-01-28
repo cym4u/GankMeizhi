@@ -19,19 +19,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_all"
-            android:icon="@drawable/ic_android"
+            android:icon="@drawable/ic_home"
             android:title="@string/nav_all"/>
         <item
             android:id="@+id/nav_mm"
-            android:icon="@drawable/ic_device"
+            android:icon="@drawable/ic_meizhi"
             android:title="@string/nav_mm"/>
         <item
             android:id="@+id/nav_android"
-            android:icon="@drawable/ic_favorite_on"
+            android:icon="@drawable/ic_android"
             android:title="@string/nav_android"/>
         <item
             android:id="@+id/nav_ios"
-            android:icon="@drawable/ic_account"
+            android:icon="@drawable/ic_ios"
             android:title="@string/nav_ios"/>
     </group>
 
