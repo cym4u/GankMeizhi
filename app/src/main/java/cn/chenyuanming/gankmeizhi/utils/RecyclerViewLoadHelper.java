@@ -1,4 +1,4 @@
-package cn.chenyuanming.gankmeizhi;
+package cn.chenyuanming.gankmeizhi.utils;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,14 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 /**
- * Created by Administrator on 2015/11/26.
+ * Created by Administrator on 2016/1/28.
  */
-public class RecylerViewLoadUtils {
-    public static boolean canDoRefresh( RecyclerView recyclerView) {
-        int firstVisibleItemPosition = -1;
+public class RecyclerViewLoadHelper {
+
+
+    public static boolean isToBottom(RecyclerView recyclerView) {
         int lastVisibleItemPosition = -1;
         int[] lastPositions;
-        int[] firstPositions;
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         if (null != layoutManager) {
             LAYOUT_MANAGER_TYPE layoutManagerType;
@@ -30,11 +30,9 @@ public class RecylerViewLoadUtils {
 
             switch (layoutManagerType) {
                 case LINEAR:
-                    firstVisibleItemPosition = ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
                     lastVisibleItemPosition = ((LinearLayoutManager) layoutManager).findLastVisibleItemPosition();
                     break;
                 case GRID:
-                    firstVisibleItemPosition = ((GridLayoutManager) layoutManager).findFirstVisibleItemPosition();
                     lastVisibleItemPosition = ((GridLayoutManager) layoutManager).findLastVisibleItemPosition();
                     break;
                 case STAGGERED_GRID:
@@ -43,10 +41,6 @@ public class RecylerViewLoadUtils {
                     staggeredGridLayoutManager.findLastVisibleItemPositions(lastPositions);
                     lastVisibleItemPosition = findMax(lastPositions);
 
-                    firstPositions = new int[staggeredGridLayoutManager.getSpanCount()];
-                    staggeredGridLayoutManager.findFirstVisibleItemPositions(firstPositions);
-                    firstVisibleItemPosition = findMin(firstPositions);
-
                     break;
             }
 
@@ -54,15 +48,11 @@ public class RecylerViewLoadUtils {
             int totalItemCount = layoutManager.getItemCount();
             if ((visibleItemCount > 0 && (lastVisibleItemPosition) >= totalItemCount - 1)) {
                 //到达最后
-               return true;
+                return true;
             }
 
         }
-        if(recyclerView.getChildCount()>0){
-            return firstVisibleItemPosition==0&&recyclerView.getChildAt(0).getTop()>=0;
-        }else{
-            return firstVisibleItemPosition == 0;
-        }
+        return false;
     }
 
     private static int findMax(int[] lastPositions) {
@@ -73,16 +63,6 @@ public class RecylerViewLoadUtils {
             }
         }
         return max;
-    }
-
-    private static int findMin(int[] lastPositions) {
-        int min = lastPositions[0];
-        for (int value : lastPositions) {
-            if (value < min) {
-                min = value;
-            }
-        }
-        return min;
     }
 
     public enum LAYOUT_MANAGER_TYPE {

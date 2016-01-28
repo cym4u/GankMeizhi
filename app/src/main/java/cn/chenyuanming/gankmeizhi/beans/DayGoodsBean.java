@@ -1,11 +1,14 @@
 package cn.chenyuanming.gankmeizhi.beans;
 
+import com.litesuits.orm.db.annotation.Table;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/1/25.
  */
-public class DayGoodsBean {
+public class DayGoodsBean implements Serializable {
 
     /**
      * error : false
@@ -17,7 +20,8 @@ public class DayGoodsBean {
     public Results results;
     public List<String> category;
 
-    public static class Results {
+    @Table("daliInfo")
+    public static class Results implements Serializable {
         /**
          * who : 咕咚
          * publishedAt : 2016-01-22T05:14:47.797Z
@@ -30,12 +34,12 @@ public class DayGoodsBean {
          * updatedAt : 2016-01-22T05:14:48.398Z
          */
 
-        public List<App> App;
+        public List<GoodsBean.Results> App;
         /**
          * who : CallMeWhy
          * publishedAt : 2016-01-22T05:14:47.809Z
          * desc : Using Generics to improve TableView cells
-
+         * <p>
          * type : iOS
          * url : http://alisoftware.github.io/swift/generics/2016/01/06/generic-tableviewcells/
          * used : true
@@ -44,7 +48,7 @@ public class DayGoodsBean {
          * updatedAt : 2016-01-22T05:14:49.336Z
          */
 
-        public List<IOS> iOS;
+        public List<GoodsBean.Results> iOS;
         /**
          * who : LHF
          * publishedAt : 2016-01-22T05:14:47.818Z
@@ -57,7 +61,7 @@ public class DayGoodsBean {
          * updatedAt : 2016-01-22T05:14:48.413Z
          */
 
-        public List<Android> Android;
+        public List<GoodsBean.Results> Android;
         /**
          * who : Dear宅学长
          * publishedAt : 2016-01-22T05:14:47.823Z
@@ -70,7 +74,7 @@ public class DayGoodsBean {
          * updatedAt : 2016-01-22T05:14:49.172Z
          */
 
-        public List<前端> 前端;
+        public List<GoodsBean.Results> 前端;
         /**
          * who : lxxself
          * publishedAt : 2016-01-22T05:14:47.825Z
@@ -83,7 +87,7 @@ public class DayGoodsBean {
          * updatedAt : 2016-01-22T05:14:49.183Z
          */
 
-        public List<瞎推荐> 瞎推荐;
+        public List<GoodsBean.Results> 瞎推荐;
         /**
          * who : LHF
          * publishedAt : 2016-01-22T05:14:47.826Z
@@ -96,7 +100,7 @@ public class DayGoodsBean {
          * updatedAt : 2016-01-22T05:14:49.187Z
          */
 
-        public List<休息视频> 休息视频;
+        public List<GoodsBean.Results> 休息视频;
         /**
          * who : 张涵宇
          * publishedAt : 2016-01-22T05:14:47.832Z
@@ -109,90 +113,91 @@ public class DayGoodsBean {
          * updatedAt : 2016-01-22T05:14:49.253Z
          */
 
-        public List<福利> 福利;
+        public List<GoodsBean.Results> 福利;
 
-        public static class App {
-            public String who;
-            public String publishedAt;
-            public String desc;
-            public String type;
-            public String url;
-            public boolean used;
-            public String objectId;
-            public String createdAt;
-            public String updatedAt;
-        }
-
-        public static class IOS {
-            public String who;
-            public String publishedAt;
-            public String desc;
-            public String type;
-            public String url;
-            public boolean used;
-            public String objectId;
-            public String createdAt;
-            public String updatedAt;
-        }
-
-        public static class Android {
-            public String who;
-            public String publishedAt;
-            public String desc;
-            public String type;
-            public String url;
-            public boolean used;
-            public String objectId;
-            public String createdAt;
-            public String updatedAt;
-        }
-
-        public static class 前端 {
-            public String who;
-            public String publishedAt;
-            public String desc;
-            public String type;
-            public String url;
-            public boolean used;
-            public String objectId;
-            public String createdAt;
-            public String updatedAt;
-        }
-
-        public static class 瞎推荐 {
-            public String who;
-            public String publishedAt;
-            public String desc;
-            public String type;
-            public String url;
-            public boolean used;
-            public String objectId;
-            public String createdAt;
-            public String updatedAt;
-        }
-
-        public static class 休息视频 {
-            public String who;
-            public String publishedAt;
-            public String desc;
-            public String type;
-            public String url;
-            public boolean used;
-            public String objectId;
-            public String createdAt;
-            public String updatedAt;
-        }
-
-        public static class 福利 {
-            public String who;
-            public String publishedAt;
-            public String desc;
-            public String type;
-            public String url;
-            public boolean used;
-            public String objectId;
-            public String createdAt;
-            public String updatedAt;
-        }
+//        @Table("Info")
+//        public static class App implements Serializable {
+//            public String who;
+//            public String publishedAt;
+//            public String desc;
+//            public String type;
+//            public String url;
+//            public boolean used;
+//            public String objectId;
+//            public String createdAt;
+//            public String updatedAt;
+//        }
+//
+//        public static class IOS implements Serializable {
+//            public String who;
+//            public String publishedAt;
+//            public String desc;
+//            public String type;
+//            public String url;
+//            public boolean used;
+//            public String objectId;
+//            public String createdAt;
+//            public String updatedAt;
+//        }
+//
+//        public static class Android implements Serializable {
+//            public String who;
+//            public String publishedAt;
+//            public String desc;
+//            public String type;
+//            public String url;
+//            public boolean used;
+//            public String objectId;
+//            public String createdAt;
+//            public String updatedAt;
+//        }
+//
+//        public static class 前端 implements Serializable {
+//            public String who;
+//            public String publishedAt;
+//            public String desc;
+//            public String type;
+//            public String url;
+//            public boolean used;
+//            public String objectId;
+//            public String createdAt;
+//            public String updatedAt;
+//        }
+//
+//        public static class 瞎推荐 implements Serializable {
+//            public String who;
+//            public String publishedAt;
+//            public String desc;
+//            public String type;
+//            public String url;
+//            public boolean used;
+//            public String objectId;
+//            public String createdAt;
+//            public String updatedAt;
+//        }
+//
+//        public static class 休息视频 implements Serializable {
+//            public String who;
+//            public String publishedAt;
+//            public String desc;
+//            public String type;
+//            public String url;
+//            public boolean used;
+//            public String objectId;
+//            public String createdAt;
+//            public String updatedAt;
+//        }
+//
+//        public static class 福利 implements Serializable {
+//            public String who;
+//            public String publishedAt;
+//            public String desc;
+//            public String type;
+//            public String url;
+//            public boolean used;
+//            public String objectId;
+//            public String createdAt;
+//            public String updatedAt;
+//        }
     }
 }

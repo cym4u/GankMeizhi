@@ -1,11 +1,16 @@
 package cn.chenyuanming.gankmeizhi.beans;
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
+import com.litesuits.orm.db.enums.AssignType;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/1/25.
  */
-public class GoodsBean {
+public class GoodsBean implements Serializable {
 
     /**
      * error : false
@@ -27,16 +32,19 @@ public class GoodsBean {
 
     public List<Results> results;
 
-    public static class Results {
+    @Table("Info")
+    public static class Results implements Serializable {
         public String who;
         public String publishedAt;
         public String desc;
         public String type;
         public String url;
         public boolean used;
+        @PrimaryKey(AssignType.BY_MYSELF)
         public String objectId;
         public String createdAt;
         public String updatedAt;
+        public boolean isRead;
 
         @Override
         public String toString() {

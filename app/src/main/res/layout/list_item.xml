@@ -16,17 +16,15 @@
     <!--android:layout_height="@dimen/list_item_avatar_size"-->
     <!--android:layout_margin="16dp"/>-->
     <ImageView
-        android:id="@+id/iv"
+        android:id="@+id/imageView"
         android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
     <TextView
-        android:id="@android:id/text1"
+        android:id="@+id/textView"
         tools:text="title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="@android:color/black" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

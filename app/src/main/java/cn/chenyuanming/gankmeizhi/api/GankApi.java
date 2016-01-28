@@ -1,4 +1,4 @@
-package cn.chenyuanming.gankmeizhi;
+package cn.chenyuanming.gankmeizhi.api;
 
 import com.google.gson.Gson;
 import com.squareup.okhttp.Cache;
@@ -6,8 +6,10 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 
+import cn.chenyuanming.gankmeizhi.application.GankApplication;
 import cn.chenyuanming.gankmeizhi.beans.DayGoodsBean;
 import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
+import cn.chenyuanming.gankmeizhi.constants.Constants;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 import retrofit.converter.GsonConverter;

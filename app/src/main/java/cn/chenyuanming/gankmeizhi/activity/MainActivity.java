@@ -1,4 +1,4 @@
-package cn.chenyuanming.gankmeizhi;
+package cn.chenyuanming.gankmeizhi.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -17,42 +16,40 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-    private DrawerLayout drawerLayout;
-    private ViewPager viewPager;
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import cn.chenyuanming.gankmeizhi.R;
+import cn.chenyuanming.gankmeizhi.fragment.GankFragment;
 
-    public static final int OS_FRAG = 0;
-    public static final int DEVICE_FRAG = 1;
-    public static final int FAV_FRAG = 2;
+public class MainActivity extends AppCompatActivity {
+    @Bind(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.viewPager)
+    ViewPager viewPager;
+    @Bind(R.id.tabLayout)
+    TabLayout tabLayout;
+    @Bind(R.id.navigationView)
+    NavigationView navigationView;
+    public static final int DEFAULT_FRAG = 0;
     public static final String EXTRA_FRAG_TYPE = "extraFragType";
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        final ActionBar ab = getSupportActionBar();
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-        ab.setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        setupDrawerContent(navigationView);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
-
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        if (viewPager != null) {
-            setupViewPager(viewPager);
-            viewPager.setCurrentItem(getIntent().getIntExtra(EXTRA_FRAG_TYPE, OS_FRAG));
-        }
-
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        setupViewPager(viewPager);
+        viewPager.setCurrentItem(getIntent().getIntExtra(EXTRA_FRAG_TYPE, DEFAULT_FRAG));
         tabLayout.setupWithViewPager(viewPager);
     }
 
@@ -67,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
+        viewPager.setOffscreenPageLimit(4);
         Adapter adapter = new Adapter(getSupportFragmentManager());
 
         addTab(adapter, GankFragment.FRAG_TYPE_ALL, getResources().getString(R.string.nav_all));
@@ -103,8 +101,6 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.nav_ios:
                                 viewPager.setCurrentItem(3);
                                 drawerLayout.closeDrawers();
-//                                Intent intent = new Intent(getApplicationContext(), UserActivity.class);
-//                                startActivity(intent);
                                 return true;
 
                             default:
@@ -126,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
         }
+
 
         @Override
         public Fragment getItem(int position) {
