@@ -10,10 +10,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import cn.chenyuanming.gankmeizhi.api.GankApi;
 import cn.chenyuanming.gankmeizhi.constants.Constants;
 import rx.Observable;
@@ -39,12 +35,12 @@ public class PrefetchService extends Service {
         GankApi.getInstance().getBenefitsGoods(limit, pageIndex).subscribe(goodsBean -> {
             Observable.from(goodsBean.results).subscribe(results -> {
                 //每天的结果
-                try {
-                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(results.updatedAt);
-                    Log.d(TAG, "onCreate: " + date.toLocaleString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(results.updatedAt);
+//                    Log.d(TAG, "onCreate: " + date.toLocaleString());
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
 
                 load(results.url);
             });

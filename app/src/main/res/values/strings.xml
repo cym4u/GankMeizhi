@@ -6,6 +6,8 @@
     <string name="nav_ios">iOS</string>
     <string name="nav_github_login">GitHub</string>
     <string name="nav_trending">Trending</string>
+    <string name="share_text">发现了一款非常美观的App「妹纸&amp;gank.io」，每天一张精选妹纸图、一个精选小视频（视频源地址播放），一篇程序猿干货，完全开源不收费，太赞了! 推荐~：http://fir.im/mengmeizhi </string>
+    <string name="action_share">分享</string>
 
 
     <string name="action_settings">Settings</string>

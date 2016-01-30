@@ -35,11 +35,11 @@
             android:title="@string/nav_ios"/>
         <item
             android:id="@+id/nav_github"
-            android:icon="@drawable/ic_ios"
+            android:icon="@drawable/ic_github"
             android:title="@string/nav_github_login"/>
         <item
             android:id="@+id/nav_trending"
-            android:icon="@drawable/ic_ios"
+            android:icon="@drawable/ic_trending"
             android:title="@string/nav_trending"/>
     </group>
 

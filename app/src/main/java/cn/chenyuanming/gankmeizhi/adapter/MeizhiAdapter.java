@@ -48,7 +48,7 @@ public class MeizhiAdapter extends RecyclerView.Adapter<MeizhiAdapter.MeizhiView
         meizhiViewHolder.textView.setText(mDatas.get(position).desc);
         meizhiViewHolder.imageView.setOnClickListener((v) -> {
             Intent intent = new Intent(context, ShowBigImageActivity.class);
-            intent.putExtra("url", mDatas.get(position).url);
+            intent.putExtra("data", mDatas.get(position));
             context.startActivity(intent);
         });
     }

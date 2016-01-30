@@ -1,6 +1,8 @@
 package cn.chenyuanming.gankmeizhi.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -80,16 +82,16 @@ public class GankFragment extends Fragment {
     }
 
     private void prefetch() {
-        GankApi.getInstance().getBenefitsGoods(limit,currentPage).subscribe(goodsBean -> {
-            Observable.from(goodsBean.results).subscribe(results ->{
+        GankApi.getInstance().getBenefitsGoods(limit, currentPage).subscribe(goodsBean -> {
+            Observable.from(goodsBean.results).subscribe(results -> {
                 //每天的结果
                 try {
-                    Date date =  new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse(results.updatedAt);
-                    Log.d(TAG, "onCreate: "+date.toLocaleString());
+                    Date date = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ").parse(results.updatedAt);
+                    Log.d(TAG, "onCreate: " + date.toLocaleString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-            } );
+            });
         });
     }
 
@@ -101,16 +103,23 @@ public class GankFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener((direction) -> {
             if (direction == SwipyRefreshLayoutDirection.TOP) {
                 currentPage = Constants.START;
-                if(allAdapter!=null){
+                if (allAdapter != null) {
                     allAdapter.getDatas().clear();
                 }
-                if(meizhiAdapter!=null){
+                if (meizhiAdapter != null) {
                     meizhiAdapter.getDatas().clear();
                 }
             }
             loadData(currentPage);
         });
-        swipeRefreshLayout.setRefreshing(true);
+
+        new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        }.sendEmptyMessageDelayed(0, 1);
     }
 
     private void setupAdapter() {
@@ -124,7 +133,7 @@ public class GankFragment extends Fragment {
             recyclerView.setAdapter(meizhiAdapter);
         } else {
             recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-            allAdapter = new ArticleViewAdapter(getActivity(), null,thisFragType);
+            allAdapter = new ArticleViewAdapter(getActivity(), null, thisFragType);
             recyclerView.setAdapter(allAdapter);
         }
     }
@@ -155,11 +164,10 @@ public class GankFragment extends Fragment {
         };
     }
 
-
     private void setupRecyclerView(List<GoodsBean.Results> results) {
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
-            if (results.size() == Constants.LIMIT) {
+            if (results.size() > 0) {
                 currentPage++;
             } else {
                 Toast.makeText(getActivity(), "没有更多数据", Toast.LENGTH_SHORT).show();

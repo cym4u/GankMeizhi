@@ -21,14 +21,26 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+        <!--<ProgressBar-->
+            <!--android:id="@+id/progressBar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
     </android.support.design.widget.AppBarLayout>
 
+
+    <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_marginTop="50dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <WebView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
     <FrameLayout
         android:id="@+id/loadingFrame"
         android:layout_width="match_parent"

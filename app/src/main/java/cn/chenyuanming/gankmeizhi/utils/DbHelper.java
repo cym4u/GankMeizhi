@@ -33,8 +33,16 @@ public class DbHelper {
 
     public <T> List<T> getData(Class<T> clazz) {
         List<T> list = getHelper().getLiteOrm().query(clazz);
-        if (list == null) {
+        if (list == null || list.size() == 0) {
             list = new ArrayList<>();
+            try {
+                list.add(clazz.newInstance());
+                getHelper().getLiteOrm().save(list);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
         return list;
     }
