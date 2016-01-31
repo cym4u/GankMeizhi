@@ -1,8 +1,6 @@
 package cn.chenyuanming.gankmeizhi.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.litesuits.orm.db.assit.QueryBuilder;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -75,8 +75,11 @@ public class GankFragment extends Fragment {
         setupAdapter();
         setupSwipeRefreshLayout();
         currentPage = Constants.START;
-        loadData(currentPage);
-        prefetch();
+
+        if (!isLoadCache()) {
+            loadData(currentPage);
+        }
+//        prefetch();
 
         return view;
     }
@@ -113,18 +116,11 @@ public class GankFragment extends Fragment {
             loadData(currentPage);
         });
 
-        new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        }.sendEmptyMessageDelayed(0, 1);
+
     }
 
     private void setupAdapter() {
         thisFragType = getArguments().getInt(ARG_FRAG_TYPE, 0);
-        Log.d("MSW", "The Frag Type is: " + thisFragType);
         if (thisFragType == FRAG_TYPE_MEIZHI) {
             recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
             SpacesItemDecoration decoration = new SpacesItemDecoration(16);
@@ -155,11 +151,29 @@ public class GankFragment extends Fragment {
         }
     }
 
+    private boolean isLoadCache() {
+
+        QueryBuilder builder = QueryBuilder.create(GoodsBean.Results.class);
+        if (thisFragType != FRAG_TYPE_ALL) {
+            String type = thisFragType == FRAG_TYPE_MEIZHI ? "福利" :
+                    (thisFragType == FRAG_TYPE_ANDROID ? "Android" : "iOS");
+            builder.getwhereBuilder().and("type=?", new Object[]{type});
+
+        }
+        ArrayList<GoodsBean.Results> datas = DbHelper.getHelper().getLiteOrm().query(builder);
+        if (datas != null && datas.size() > 0) {
+            Log.d(TAG, "loadData: " + datas.size());
+            setupRecyclerView(datas);
+            return true;
+        }
+        return false;
+    }
+
     @NonNull
     private Action1<GoodsBean> getGoodsBeanAction() {
         return goodsBean -> {
             setupRecyclerView(goodsBean.results);
-            DbHelper.getHelper().getLiteOrm().update(goodsBean.results);
+            DbHelper.getHelper().getLiteOrm().save(goodsBean.results);
             Log.i(TAG, thisFragType + "onCreateView: " + goodsBean.results);
         };
     }
@@ -175,11 +189,13 @@ public class GankFragment extends Fragment {
         }
         switch (thisFragType) {
             case (FRAG_TYPE_MEIZHI):
+                results.removeAll(meizhiAdapter.getDatas());
                 meizhiAdapter.getDatas().addAll(results);
 //                meizhiAdapter.notifyItemRangeChanged(meizhiAdapter.getItemCount() - results.size(), results.size());
                 meizhiAdapter.notifyDataSetChanged();
                 break;
             default:
+                results.removeAll(allAdapter.getDatas());
                 allAdapter.getDatas().addAll(results);
 //                allAdapter.notifyItemRangeChanged(allAdapter.getItemCount() - results.size(), results.size());
                 allAdapter.notifyDataSetChanged();

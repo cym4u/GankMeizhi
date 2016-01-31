@@ -100,12 +100,6 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
                 intent.putExtra("data", mDatas.get(position));
                 context.startActivity(intent);
             });
-            holder.ivFavorite.setOnClickListener(v -> {
-                onFavoriteClicked(holder.ivFavorite, favorite.favorites, data.objectId);
-                DbHelper.getHelper().getLiteOrm().save(favorite);
-            });
-            changeFavoriteIcon(holder.ivFavorite, favorite.favorites, data.objectId);
-            DbHelper.getHelper().getLiteOrm().save(favorite);
         } else {
             holder.iv_meizhi.setVisibility(View.GONE);
             holder.tv_title.setOnClickListener(v -> {
@@ -117,14 +111,13 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
                 readArticles.articles.add(data.objectId);
                 DbHelper.getHelper().getLiteOrm().save(readArticles);
             });
-            holder.ivFavorite.setOnClickListener(v -> {
-                onFavoriteClicked(holder.ivFavorite, readArticles.articles, data.objectId);
-                DbHelper.getHelper().getLiteOrm().save(readArticles);
-            });
-            changeFavoriteIcon(holder.ivFavorite, readArticles.articles, data.objectId);
-            DbHelper.getHelper().getLiteOrm().save(readArticles);
         }
 
+        setFavoriteIcon(holder.ivFavorite, favorite.favorites, data.objectId);
+        holder.ivFavorite.setOnClickListener(v -> {
+            onFavoriteClicked(holder.ivFavorite, favorite.favorites, data.objectId);
+            DbHelper.getHelper().getLiteOrm().save(favorite);
+        });
     }
 
     private void onFavoriteClicked(ImageView ivFavorite, TreeSet<String> favorites, String objectId) {
@@ -133,10 +126,10 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         } else {
             favorites.add(objectId);
         }
-        changeFavoriteIcon(ivFavorite, favorites, objectId);
+        setFavoriteIcon(ivFavorite, favorites, objectId);
     }
 
-    private void changeFavoriteIcon(ImageView ivFavorite, TreeSet<String> favorites, String objectId) {
+    private void setFavoriteIcon(ImageView ivFavorite, TreeSet<String> favorites, String objectId) {
         Drawable drawable = ivFavorite.getDrawable();
         if (favorites.contains(objectId)) {
             drawable.setColorFilter(Color.parseColor("#ff0000"), PorterDuff.Mode.SRC_IN);
