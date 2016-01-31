@@ -19,7 +19,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -89,6 +88,22 @@ public class WebViewActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem item;
+        for (int i = 0; i < menu.size(); i++) {
+            item = menu.getItem(i);
+            Drawable drawable = item.getIcon();
+            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            item.setIcon(drawable);
+            if(item.getItemId()==R.id.action_favorite){
+                changeFavoriteIcon(item,favorite.favorites,objectId);
+            }
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     FavoriteBean favorite = DbHelper.getHelper().getData(FavoriteBean.class).get(0);
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -103,7 +118,7 @@ public class WebViewActivity extends AppCompatActivity {
                 ShareUtils.share(this, "");
                 return true;
             case R.id.action_favorite:
-                onFavoriteClicked((ImageView) item.getActionView(), favorite.favorites, objectId);
+                onFavoriteClicked(item, favorite.favorites, objectId);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -169,22 +184,25 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
-    private void onFavoriteClicked(ImageView ivFavorite, TreeSet<String> favorites, String objectId) {
+    private void onFavoriteClicked(MenuItem item, TreeSet<String> favorites, String objectId) {
         if (favorites.contains(objectId)) {
             favorites.remove(objectId);
         } else {
             favorites.add(objectId);
         }
-//        changeFavoriteIcon(ivFavorite, favorites, objectId);
+        DbHelper.getHelper().getLiteOrm().save(favorite);
+        changeFavoriteIcon(item, favorites, objectId);
     }
 
-    private void changeFavoriteIcon(ImageView ivFavorite, TreeSet<String> favorites, String objectId) {
-        Drawable drawable = ivFavorite.getDrawable();
-        if (favorites.contains(objectId)) {
-            drawable.setColorFilter(Color.parseColor("#ff0000"), PorterDuff.Mode.SRC_IN);
-            ivFavorite.setImageDrawable(drawable);
-        } else {
-            ivFavorite.setImageResource(R.drawable.ic_favorite);
+    private void changeFavoriteIcon(MenuItem item, TreeSet<String> favorites, String objectId) {
+        Drawable drawable = item.getIcon();
+
+        if(favorite.favorites.contains(objectId)) {
+            drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+            item.setIcon(drawable);
+        }else{
+            drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+            item.setIcon(drawable);
         }
     }
 

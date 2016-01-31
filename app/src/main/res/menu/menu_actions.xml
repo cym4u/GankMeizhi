@@ -1,17 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.actionbartest.MainActivity">
 
     <item
         android:id="@+id/action_share"
         android:icon="@drawable/ic_share"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="分享"
         tools:ignore="AppCompatResource" />
     <item
         android:id="@+id/action_favorite"
         android:icon="@drawable/ic_favorite"
-        android:showAsAction="always"
+        app:showAsAction="always"
         android:title="收藏"
         tools:ignore="AppCompatResource" />
 
