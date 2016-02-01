@@ -21,15 +21,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_meizhi"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:visibility="gone"
-            tools:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,34 +32,58 @@
 
             <TextView
                 android:id="@+id/tv_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="italic"
-                tools:text="#Android" />
+                android:layout_width="94dp"
+                android:layout_height="28dp"
+                android:background="@drawable/shape_type"
+                android:gravity="center_vertical"
+                android:paddingLeft="8.5dp"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                tools:text="Android" />
+
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:layout_marginTop="14dp"
+                android:padding="8.5dp"
+                android:textColor="#333333"
+                android:textSize="15sp"
                 tools:text="CoCoin是一款记账APP，有记账、多种方式显示支出占比和支出变化、云同步、智能提醒等功能。" />
 
-
+            <ImageView
+                android:id="@+id/iv_meizhi"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:padding="6dp"
+                android:visibility="gone"
+                tools:visibility="visible" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingLeft="8.5dp">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#bfc8d6"
+                tools:text="2016-01-05" />
 
             <TextView
                 android:id="@+id/tv_author"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="@android:color/darker_gray"
-                tools:text="推荐 by \@KeepCoding" />
+                android:paddingLeft="14.5dp"
+                android:textColor="#bfc8d6"
+                tools:text="by \@KeepCoding" />
 
             <ImageView
                 android:id="@+id/iv_share"

@@ -46,6 +46,8 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         TextView tv_type;
         @Bind(R.id.tv_title)
         TextView tv_title;
+        @Bind(R.id.tv_time)
+        TextView tv_time;
         @Bind(R.id.tv_author)
         TextView tv_author;
         @Bind(R.id.iv_share)
@@ -87,14 +89,18 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         CommonGoodsBean.Results data = mDatas.get(position);
 
         holder.tv_title.setText(data.desc);
-        holder.tv_author.setText("推荐 by @" + data.who);
-        holder.tv_type.setText("#" + data.type + " ");
+        holder.tv_time.setText(data.updatedAt.substring(0, data.updatedAt.indexOf("T")));
+        holder.tv_author.setText("by @" + data.who);
+        holder.tv_type.setText(data.type);
         if (readArticles.articles.contains(data.objectId)) {
             holder.tv_title.setTextColor(context.getResources().getColor(R.color.lightBlack));
         } else {
             holder.tv_title.setTextColor(context.getResources().getColor(R.color.black));
         }
+
+
         if (data.type.equals("福利")) {
+            holder.tv_title.setVisibility(View.GONE);
             holder.iv_meizhi.setVisibility(View.VISIBLE);
             Glide.with(context).load(data.url).into(holder.iv_meizhi);
             holder.mainView.setOnClickListener((v) -> {
@@ -103,6 +109,7 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
                 context.startActivity(intent);
             });
         } else {
+            holder.tv_title.setVisibility(View.VISIBLE);
             holder.iv_meizhi.setVisibility(View.GONE);
             holder.mainView.setOnClickListener(v -> {
                 holder.tv_title.setTextColor(context.getResources().getColor(R.color.lightBlack));
@@ -121,7 +128,24 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
             DbHelper.getHelper().getLiteOrm().save(favorite);
         });
 
-        holder.iv_share.setOnClickListener(v ->  ShareUtils.share(context, data.desc + data.url));
+        holder.iv_share.setOnClickListener(v -> ShareUtils.share(context, data.desc + data.url));
+
+        switch (data.type) {
+            case "Android":
+                holder.tv_type.setBackgroundResource(R.drawable.shape_type_android);
+                break;
+            case "iOS":
+                holder.tv_type.setBackgroundResource(R.drawable.shape_type_ios);
+                break;
+            case "拓展资源":
+            case "App":
+                holder.tv_type.setBackgroundResource(R.drawable.shape_type_extend);
+                break;
+            case "休息视频":
+            default:
+                holder.tv_type.setBackgroundResource(R.drawable.shape_type_relax);
+                break;
+        }
     }
 
     private void onFavoriteClicked(ImageView ivFavorite, TreeSet<String> favorites, String objectId) {

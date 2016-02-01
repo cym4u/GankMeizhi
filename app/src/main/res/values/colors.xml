@@ -5,4 +5,11 @@
     <color name="colorAccent">#FF4081</color>
     <color name="lightBlack">#4000</color>
     <color name="black">#000</color>
+    <color name="bg_android">#2397fc</color>
+    <color name="bg_ios">#00bf96</color>
+    <color name="bg_extend">#fcb43f</color>
+    <color name="bg_relax">#fc765b</color>
+
+
+
 </resources>
