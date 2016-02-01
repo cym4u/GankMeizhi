@@ -38,7 +38,7 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
 
     FavoriteBean favorite = DbHelper.getHelper().getData(FavoriteBean.class).get(0);
     ReadArticles readArticles = DbHelper.getHelper().getData(ReadArticles.class).get(0);
-
+    static Drawable defaultShare;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.iv_meizhi)
         ImageView iv_meizhi;
@@ -60,6 +60,9 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
             super(view);
             ButterKnife.bind(this, view);
             mainView = view;
+            defaultShare = iv_share.getDrawable();
+            defaultShare.setColorFilter(Color.parseColor("#bfc8d6"), PorterDuff.Mode.SRC_IN);
+            iv_share.setImageDrawable(defaultShare);
         }
     }
 
@@ -163,7 +166,8 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
             drawable.setColorFilter(Color.parseColor("#ff0000"), PorterDuff.Mode.SRC_IN);
             ivFavorite.setImageDrawable(drawable);
         } else {
-            ivFavorite.setImageResource(R.drawable.ic_favorite);
+            drawable.setColorFilter(Color.parseColor("#bfc8d6"), PorterDuff.Mode.SRC_IN);
+            ivFavorite.setImageDrawable(drawable);
         }
     }
 
