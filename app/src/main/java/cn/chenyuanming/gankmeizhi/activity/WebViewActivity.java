@@ -7,8 +7,8 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,14 +28,14 @@ import java.util.TreeSet;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cn.chenyuanming.gankmeizhi.R;
-import cn.chenyuanming.gankmeizhi.beans.FavoriteBean;
+import cn.chenyuanming.gankmeizhi.beans.db.FavoriteBean;
 import cn.chenyuanming.gankmeizhi.utils.DbHelper;
 import cn.chenyuanming.gankmeizhi.utils.ShareUtils;
 
 /**
  * Created by Administrator on 2016/1/28.
  */
-public class WebViewActivity extends AppCompatActivity {
+public class WebViewActivity extends BaseActivity {
     @Bind(R.id.loadingFrame)
     FrameLayout loadingFrame;
     @Bind(R.id.toolbar)
@@ -47,7 +47,8 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Bind(R.id.swipeRefreshLayout)
     SwipyRefreshLayout swipeRefreshLayout;
-    String objectId;
+    String objectId = "";
+
 
     @SuppressWarnings("ConstantConditions")
     @Override
@@ -96,8 +97,8 @@ public class WebViewActivity extends AppCompatActivity {
             Drawable drawable = item.getIcon();
             drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
             item.setIcon(drawable);
-            if(item.getItemId()==R.id.action_favorite){
-                changeFavoriteIcon(item,favorite.favorites,objectId);
+            if (item.getItemId() == R.id.action_favorite) {
+                changeFavoriteIcon(item, favorite.favorites, objectId);
             }
         }
 
@@ -197,10 +198,10 @@ public class WebViewActivity extends AppCompatActivity {
     private void changeFavoriteIcon(MenuItem item, TreeSet<String> favorites, String objectId) {
         Drawable drawable = item.getIcon();
 
-        if(favorite.favorites.contains(objectId)) {
+        if (!TextUtils.isEmpty(objectId) && favorite.favorites.contains(objectId)) {
             drawable.setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
             item.setIcon(drawable);
-        }else{
+        } else {
             drawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
             item.setIcon(drawable);
         }

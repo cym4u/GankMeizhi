@@ -13,15 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.litesuits.orm.db.assit.QueryBuilder;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,10 +26,12 @@ import cn.chenyuanming.gankmeizhi.R;
 import cn.chenyuanming.gankmeizhi.adapter.ArticleViewAdapter;
 import cn.chenyuanming.gankmeizhi.adapter.MeizhiAdapter;
 import cn.chenyuanming.gankmeizhi.api.GankApi;
-import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
+import cn.chenyuanming.gankmeizhi.beans.CommonGoodsBean;
+import cn.chenyuanming.gankmeizhi.beans.db.DbGoodsBean;
 import cn.chenyuanming.gankmeizhi.constants.Constants;
 import cn.chenyuanming.gankmeizhi.decoration.SpacesItemDecoration;
 import cn.chenyuanming.gankmeizhi.utils.DbHelper;
+import cn.chenyuanming.gankmeizhi.utils.ToastUtil;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -76,26 +75,15 @@ public class GankFragment extends Fragment {
         setupSwipeRefreshLayout();
         currentPage = Constants.START;
 
-        if (!isLoadCache()) {
-            loadData(currentPage);
-        }
-//        prefetch();
-
         return view;
     }
 
-    private void prefetch() {
-        GankApi.getInstance().getBenefitsGoods(limit, currentPage).subscribe(goodsBean -> {
-            Observable.from(goodsBean.results).subscribe(results -> {
-                //每天的结果
-                try {
-                    Date date = new SimpleDateFormat("yyyy-MM-ddTHH:mm:ss.SSSZ").parse(results.updatedAt);
-                    Log.d(TAG, "onCreate: " + date.toLocaleString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-            });
-        });
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!isLoadCache()) {
+            loadData(currentPage);
+        }
     }
 
     private void setupSwipeRefreshLayout() {
@@ -104,6 +92,10 @@ public class GankFragment extends Fragment {
         swipeRefreshLayout.setDirection(SwipyRefreshLayoutDirection.BOTH);
         //设置下拉刷新监听
         swipeRefreshLayout.setOnRefreshListener((direction) -> {
+
+            //timeout
+            Observable.timer(10, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(time -> swipeRefreshLayout.setRefreshing(false));
+
             if (direction == SwipyRefreshLayoutDirection.TOP) {
                 currentPage = Constants.START;
                 if (allAdapter != null) {
@@ -112,6 +104,20 @@ public class GankFragment extends Fragment {
                 if (meizhiAdapter != null) {
                     meizhiAdapter.getDatas().clear();
                 }
+            }
+            switch (thisFragType) {
+                case FRAG_TYPE_ALL:
+                    dbGoodsBean.allResults.clear();
+                    break;
+                case FRAG_TYPE_MEIZHI:
+                    dbGoodsBean.meizhiResults.clear();
+                    break;
+                case FRAG_TYPE_ANDROID:
+                    dbGoodsBean.androidResults.clear();
+                    break;
+                case FRAG_TYPE_IOS:
+                    dbGoodsBean.iosResults.clear();
+                    break;
             }
             loadData(currentPage);
         });
@@ -137,48 +143,78 @@ public class GankFragment extends Fragment {
     private void loadData(int pageIndex) {
         switch (thisFragType) {
             case FRAG_TYPE_ALL:
-                GankApi.getInstance().getAllGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction());
+                GankApi.getInstance().getAllGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction(), e -> showNoNetWorkToast(e));
                 break;
             case FRAG_TYPE_MEIZHI:
-                GankApi.getInstance().getBenefitsGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction());
+                GankApi.getInstance().getBenefitsGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction(), e -> showNoNetWorkToast(e));
                 break;
             case FRAG_TYPE_ANDROID:
-                GankApi.getInstance().getAndroidGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction());
+                GankApi.getInstance().getAndroidGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction(), e -> showNoNetWorkToast(e));
                 break;
             case FRAG_TYPE_IOS:
-                GankApi.getInstance().getIosGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction());
+                GankApi.getInstance().getIosGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction(), e -> showNoNetWorkToast(e));
                 break;
         }
     }
 
+    private void showNoNetWorkToast(Throwable e) {
+        Log.d(TAG, "showNoNetWorkToast() called with: " + "e = [" + e + "]");
+        ToastUtil.showShortToast("网络不给力，请稍后再试");
+    }
+
     private boolean isLoadCache() {
 
-        QueryBuilder builder = QueryBuilder.create(GoodsBean.Results.class);
-        if (thisFragType != FRAG_TYPE_ALL) {
-            String type = thisFragType == FRAG_TYPE_MEIZHI ? "福利" :
-                    (thisFragType == FRAG_TYPE_ANDROID ? "Android" : "iOS");
-            builder.getwhereBuilder().and("type=?", new Object[]{type});
-
+        DbGoodsBean dbGoodsBean = DbHelper.getHelper().getData(DbGoodsBean.class).get(0);
+        List<CommonGoodsBean.Results> datas = new ArrayList<>();
+        switch (thisFragType) {
+            case FRAG_TYPE_ALL:
+                datas = dbGoodsBean.allResults;
+                break;
+            case FRAG_TYPE_MEIZHI:
+                datas = dbGoodsBean.meizhiResults;
+                break;
+            case FRAG_TYPE_ANDROID:
+                datas = dbGoodsBean.androidResults;
+                break;
+            case FRAG_TYPE_IOS:
+                datas = dbGoodsBean.iosResults;
+                break;
         }
-        ArrayList<GoodsBean.Results> datas = DbHelper.getHelper().getLiteOrm().query(builder);
         if (datas != null && datas.size() > 0) {
-            Log.d(TAG, "loadData: " + datas.size());
             setupRecyclerView(datas);
             return true;
         }
         return false;
     }
 
+    DbGoodsBean dbGoodsBean = DbHelper.getHelper().getData(DbGoodsBean.class).get(0);
+
     @NonNull
-    private Action1<GoodsBean> getGoodsBeanAction() {
+    private Action1<CommonGoodsBean> getGoodsBeanAction() {
         return goodsBean -> {
+
             setupRecyclerView(goodsBean.results);
-            DbHelper.getHelper().getLiteOrm().save(goodsBean.results);
+            switch (thisFragType) {
+                case FRAG_TYPE_ALL:
+                    dbGoodsBean.allResults.addAll(goodsBean.results);
+                    break;
+                case FRAG_TYPE_MEIZHI:
+                    dbGoodsBean.meizhiResults.addAll(goodsBean.results);
+                    break;
+                case FRAG_TYPE_ANDROID:
+                    dbGoodsBean.androidResults.addAll(goodsBean.results);
+                    break;
+                case FRAG_TYPE_IOS:
+                    dbGoodsBean.iosResults.addAll(goodsBean.results);
+                    break;
+            }
+
+            DbHelper.getHelper().getLiteOrm().save(dbGoodsBean);
             Log.i(TAG, thisFragType + "onCreateView: " + goodsBean.results);
         };
     }
 
-    private void setupRecyclerView(List<GoodsBean.Results> results) {
+    private void setupRecyclerView(List<CommonGoodsBean.Results> results) {
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
             if (results.size() > 0) {
@@ -189,12 +225,18 @@ public class GankFragment extends Fragment {
         }
         switch (thisFragType) {
             case (FRAG_TYPE_MEIZHI):
+                if (currentPage == Constants.START) {
+                    meizhiAdapter.getDatas().clear();
+                }
                 results.removeAll(meizhiAdapter.getDatas());
                 meizhiAdapter.getDatas().addAll(results);
 //                meizhiAdapter.notifyItemRangeChanged(meizhiAdapter.getItemCount() - results.size(), results.size());
                 meizhiAdapter.notifyDataSetChanged();
                 break;
             default:
+                if (currentPage == Constants.START) {
+                    allAdapter.getDatas().clear();
+                }
                 results.removeAll(allAdapter.getDatas());
                 allAdapter.getDatas().addAll(results);
 //                allAdapter.notifyItemRangeChanged(allAdapter.getItemCount() - results.size(), results.size());

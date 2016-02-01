@@ -11,7 +11,7 @@ android {
     }
     defaultConfig {
         applicationId "cn.chenyuanming.gankmeizhi"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -47,4 +47,5 @@ dependencies {
     compile 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
     compile 'de.hdodenhof:circleimageview:2.0.0'
     compile 'com.github.orangegangsters:swipy:1.1.0@aar'
+    compile 'com.jude:swipebackhelper:2.1.5'
 }

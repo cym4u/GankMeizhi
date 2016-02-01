@@ -8,7 +8,7 @@ import java.io.File;
 
 import cn.chenyuanming.gankmeizhi.application.GankApplication;
 import cn.chenyuanming.gankmeizhi.beans.DayGoodsBean;
-import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
+import cn.chenyuanming.gankmeizhi.beans.CommonGoodsBean;
 import cn.chenyuanming.gankmeizhi.constants.Constants;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
@@ -59,25 +59,25 @@ public class GankApi {
     public interface GankService {
 
         @GET("/data/Android/{limit}/{page}")
-        Observable<GoodsBean> getAndroidGoods(
+        Observable<CommonGoodsBean> getAndroidGoods(
                 @Path("limit") int limit,
                 @Path("page") int page
         );
 
         @GET("/data/iOS/{limit}/{page}")
-        Observable<GoodsBean> getIosGoods(
+        Observable<CommonGoodsBean> getIosGoods(
                 @Path("limit") int limit,
                 @Path("page") int page
         );
 
         @GET("/data/all/{limit}/{page}")
-        Observable<GoodsBean> getAllGoods(
+        Observable<CommonGoodsBean> getAllGoods(
                 @Path("limit") int limit,
                 @Path("page") int page
         );
 
         @GET("/data/福利/{limit}/{page}")
-        Observable<GoodsBean> getBenefitsGoods(
+        Observable<CommonGoodsBean> getBenefitsGoods(
                 @Path("limit") int limit,
                 @Path("page") int page
         );
@@ -90,7 +90,7 @@ public class GankApi {
         );
     }
 
-    public Observable<GoodsBean> getCommonGoods(String type,int limit, int page) {
+    public Observable<CommonGoodsBean> getCommonGoods(String type, int limit, int page) {
         if("Android".equalsIgnoreCase(type)){
             return gankService.getAndroidGoods(limit, page);
         }
@@ -100,19 +100,19 @@ public class GankApi {
         return gankService.getAndroidGoods(limit, page);
     }
 
-    public Observable<GoodsBean> getAndroidGoods(int limit, int page) {
+    public Observable<CommonGoodsBean> getAndroidGoods(int limit, int page) {
         return gankService.getAndroidGoods(limit, page);
     }
 
-    public Observable<GoodsBean> getIosGoods(int limit, int page) {
+    public Observable<CommonGoodsBean> getIosGoods(int limit, int page) {
         return gankService.getIosGoods(limit, page);
     }
 
-    public Observable<GoodsBean> getAllGoods(int limit, int page) {
+    public Observable<CommonGoodsBean> getAllGoods(int limit, int page) {
         return gankService.getAllGoods(limit, page);
     }
 
-    public Observable<GoodsBean> getBenefitsGoods(int limit, int page) {
+    public Observable<CommonGoodsBean> getBenefitsGoods(int limit, int page) {
         return gankService.getBenefitsGoods(limit, page);
     }
 

@@ -34,7 +34,7 @@ public class DayGoodsBean implements Serializable {
          * updatedAt : 2016-01-22T05:14:48.398Z
          */
 
-        public List<GoodsBean.Results> App;
+        public List<Results> App;
         /**
          * who : CallMeWhy
          * publishedAt : 2016-01-22T05:14:47.809Z
@@ -48,7 +48,7 @@ public class DayGoodsBean implements Serializable {
          * updatedAt : 2016-01-22T05:14:49.336Z
          */
 
-        public List<GoodsBean.Results> iOS;
+        public List<Results> iOS;
         /**
          * who : LHF
          * publishedAt : 2016-01-22T05:14:47.818Z
@@ -61,7 +61,7 @@ public class DayGoodsBean implements Serializable {
          * updatedAt : 2016-01-22T05:14:48.413Z
          */
 
-        public List<GoodsBean.Results> Android;
+        public List<Results> Android;
         /**
          * who : Dear宅学长
          * publishedAt : 2016-01-22T05:14:47.823Z
@@ -74,7 +74,7 @@ public class DayGoodsBean implements Serializable {
          * updatedAt : 2016-01-22T05:14:49.172Z
          */
 
-        public List<GoodsBean.Results> 前端;
+        public List<Results> 前端;
         /**
          * who : lxxself
          * publishedAt : 2016-01-22T05:14:47.825Z
@@ -87,7 +87,7 @@ public class DayGoodsBean implements Serializable {
          * updatedAt : 2016-01-22T05:14:49.183Z
          */
 
-        public List<GoodsBean.Results> 瞎推荐;
+        public List<Results> 瞎推荐;
         /**
          * who : LHF
          * publishedAt : 2016-01-22T05:14:47.826Z
@@ -100,7 +100,7 @@ public class DayGoodsBean implements Serializable {
          * updatedAt : 2016-01-22T05:14:49.187Z
          */
 
-        public List<GoodsBean.Results> 休息视频;
+        public List<Results> 休息视频;
         /**
          * who : 张涵宇
          * publishedAt : 2016-01-22T05:14:47.832Z
@@ -113,7 +113,7 @@ public class DayGoodsBean implements Serializable {
          * updatedAt : 2016-01-22T05:14:49.253Z
          */
 
-        public List<GoodsBean.Results> 福利;
+        public List<Results> 福利;
 
 //        @Table("Info")
 //        public static class App implements Serializable {

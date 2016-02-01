@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +18,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.chenyuanming.gankmeizhi.R;
-import cn.chenyuanming.gankmeizhi.beans.FavoriteBean;
-import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
+import cn.chenyuanming.gankmeizhi.beans.db.FavoriteBean;
+import cn.chenyuanming.gankmeizhi.beans.CommonGoodsBean;
 import cn.chenyuanming.gankmeizhi.utils.DbHelper;
 import cn.chenyuanming.gankmeizhi.utils.RxMeizhi;
 import cn.chenyuanming.gankmeizhi.utils.ShareUtils;
@@ -30,7 +29,7 @@ import rx.android.schedulers.AndroidSchedulers;
 /**
  * Created by livin on 2016/1/28.
  */
-public class ShowBigImageActivity extends AppCompatActivity {
+public class ShowBigImageActivity extends BaseActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.iv_meizhi)
@@ -41,7 +40,7 @@ public class ShowBigImageActivity extends AppCompatActivity {
     ImageView ivShare;
     @Bind(R.id.iv_favorite)
     ImageView ivFavorite;
-    GoodsBean.Results data;
+    CommonGoodsBean.Results data;
 
     FavoriteBean favorite = DbHelper.getHelper().getData(FavoriteBean.class).get(0);
 
@@ -56,8 +55,8 @@ public class ShowBigImageActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Object object = getIntent().getSerializableExtra("data");
-        if (object instanceof GoodsBean.Results) {
-            data = (GoodsBean.Results) object;
+        if (object instanceof CommonGoodsBean.Results) {
+            data = (CommonGoodsBean.Results) object;
             Glide.with(this).load(data.url).diskCacheStrategy(DiskCacheStrategy.ALL).into(ivMeizhi);
             changeFavoriteIcon(ivFavorite, favorite.favorites, data.objectId);
         }

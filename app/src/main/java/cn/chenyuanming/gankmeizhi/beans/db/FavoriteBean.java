@@ -1,4 +1,4 @@
-package cn.chenyuanming.gankmeizhi.beans;
+package cn.chenyuanming.gankmeizhi.beans.db;
 
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.enums.AssignType;

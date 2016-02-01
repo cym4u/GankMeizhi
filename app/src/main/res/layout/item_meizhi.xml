@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:minHeight="160dp"
         android:scaleType="fitCenter" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@android:color/black"
+        android:visibility="gone"
         tools:text="title" />
 
 </LinearLayout>

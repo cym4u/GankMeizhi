@@ -23,17 +23,18 @@ import butterknife.ButterKnife;
 import cn.chenyuanming.gankmeizhi.R;
 import cn.chenyuanming.gankmeizhi.activity.ShowBigImageActivity;
 import cn.chenyuanming.gankmeizhi.activity.WebViewActivity;
-import cn.chenyuanming.gankmeizhi.beans.FavoriteBean;
-import cn.chenyuanming.gankmeizhi.beans.GoodsBean;
-import cn.chenyuanming.gankmeizhi.beans.ReadArticles;
+import cn.chenyuanming.gankmeizhi.beans.db.FavoriteBean;
+import cn.chenyuanming.gankmeizhi.beans.CommonGoodsBean;
+import cn.chenyuanming.gankmeizhi.beans.db.ReadArticles;
 import cn.chenyuanming.gankmeizhi.utils.DbHelper;
+import cn.chenyuanming.gankmeizhi.utils.ShareUtils;
 
 /**
  * Created by Administrator on 2016/1/28.
  */
 public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.ViewHolder> {
 
-    private List<GoodsBean.Results> mDatas = new ArrayList<>();
+    private List<CommonGoodsBean.Results> mDatas = new ArrayList<>();
 
     FavoriteBean favorite = DbHelper.getHelper().getData(FavoriteBean.class).get(0);
     ReadArticles readArticles = DbHelper.getHelper().getData(ReadArticles.class).get(0);
@@ -51,11 +52,12 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         ImageView iv_share;
         @Bind(R.id.iv_favorite)
         ImageView ivFavorite;
-
+        View mainView;
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            mainView = view;
         }
     }
 
@@ -66,7 +68,7 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
     Context context;
     int fragType;
 
-    public ArticleViewAdapter(Context context, List<GoodsBean.Results> items, int fragType) {
+    public ArticleViewAdapter(Context context, List<CommonGoodsBean.Results> items, int fragType) {
         this.context = context;
         if (items != null) {
             mDatas.addAll(items);
@@ -82,7 +84,7 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        GoodsBean.Results data = mDatas.get(position);
+        CommonGoodsBean.Results data = mDatas.get(position);
 
         holder.tv_title.setText(data.desc);
         holder.tv_author.setText("推荐 by @" + data.who);
@@ -95,14 +97,14 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         if (data.type.equals("福利")) {
             holder.iv_meizhi.setVisibility(View.VISIBLE);
             Glide.with(context).load(data.url).into(holder.iv_meizhi);
-            holder.iv_meizhi.setOnClickListener((v) -> {
+            holder.mainView.setOnClickListener((v) -> {
                 Intent intent = new Intent(context, ShowBigImageActivity.class);
                 intent.putExtra("data", mDatas.get(position));
                 context.startActivity(intent);
             });
         } else {
             holder.iv_meizhi.setVisibility(View.GONE);
-            holder.tv_title.setOnClickListener(v -> {
+            holder.mainView.setOnClickListener(v -> {
                 holder.tv_title.setTextColor(context.getResources().getColor(R.color.lightBlack));
                 Intent intent = new Intent(context, WebViewActivity.class);
                 intent.putExtra("url", mDatas.get(position).url);
@@ -118,6 +120,8 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
             onFavoriteClicked(holder.ivFavorite, favorite.favorites, data.objectId);
             DbHelper.getHelper().getLiteOrm().save(favorite);
         });
+
+        holder.iv_share.setOnClickListener(v ->  ShareUtils.share(context, data.desc + data.url));
     }
 
     private void onFavoriteClicked(ImageView ivFavorite, TreeSet<String> favorites, String objectId) {
@@ -144,7 +148,7 @@ public class ArticleViewAdapter extends RecyclerView.Adapter<ArticleViewAdapter.
         return mDatas.size();
     }
 
-    public List<GoodsBean.Results> getDatas() {
+    public List<CommonGoodsBean.Results> getDatas() {
         return mDatas;
     }
 
