@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">干货·萌妹纸</string>
+    <string name="app_name_debug">干货·萌妹纸Debug</string>
     <string name="umeng_app_key">56b04542e0f55aecb9000f69</string>
     <string name="nav_all">所有</string>
     <string name="nav_mm">妹纸</string>

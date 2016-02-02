@@ -25,12 +25,12 @@
         android:name=".application.GankApplication"
         android:allowBackup="true"
         android:icon="@drawable/meizhi"
-        android:label="@string/app_name"
+        android:label="${APP_NAME}"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name"
+            android:label="${APP_NAME}"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

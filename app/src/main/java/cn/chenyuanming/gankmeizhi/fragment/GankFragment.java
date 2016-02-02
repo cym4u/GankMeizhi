@@ -1,6 +1,8 @@
 package cn.chenyuanming.gankmeizhi.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -56,6 +57,14 @@ public class GankFragment extends BaseFragment {
     ArticleViewAdapter allAdapter;
     MeizhiAdapter meizhiAdapter;
 
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            swipeRefreshLayout.setRefreshing(true);
+        }
+    };
+
     public static Fragment newInstance(int type) {
         GankFragment fragment = new GankFragment();
         Bundle bundle = new Bundle();
@@ -82,6 +91,7 @@ public class GankFragment extends BaseFragment {
         super.onResume();
         if (!isLoadCache()) {
             loadData(currentPage);
+            handler.sendEmptyMessageDelayed(0, 1);
         }
     }
 
@@ -92,8 +102,6 @@ public class GankFragment extends BaseFragment {
         //设置下拉刷新监听
         swipeRefreshLayout.setOnRefreshListener((direction) -> {
 
-            //timeout
-            Observable.timer(10, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(time -> swipeRefreshLayout.setRefreshing(false));
 
             clearAdapterCache(direction);
             clearDbCache();
@@ -148,6 +156,8 @@ public class GankFragment extends BaseFragment {
     }
 
     private void loadData(int pageIndex) {
+        //timeout
+        Observable.timer(10, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(time -> swipeRefreshLayout.setRefreshing(false));
         switch (thisFragType) {
             case FRAG_TYPE_ALL:
                 GankApi.getInstance().getAllGoods(limit, pageIndex).observeOn(AndroidSchedulers.mainThread()).subscribe(getGoodsBeanAction(), e -> showNoNetWorkToast(e));
@@ -166,6 +176,9 @@ public class GankFragment extends BaseFragment {
 
     private void showNoNetWorkToast(Throwable e) {
         Log.d(TAG, "showNoNetWorkToast() called with: " + "e = [" + e + "]");
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
 //        ToastUtil.showShortToast("网络不给力，请稍后再试");
     }
 
@@ -233,11 +246,9 @@ public class GankFragment extends BaseFragment {
     private void setupRecyclerView(List<CommonGoodsBean.Results> results) {
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
-            if (results.size() > 0) {
-                currentPage++;
-            } else {
-                Toast.makeText(getActivity(), "没有更多数据", Toast.LENGTH_SHORT).show();
-            }
+        }
+        if (results.size() > 0) {
+            currentPage++;
         }
         switch (thisFragType) {
             case (FRAG_TYPE_MEIZHI):
