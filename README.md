@@ -16,11 +16,11 @@
 
 ###应用截图：
 
-![img](screenshot/screenshot_1.png)
-![img](screenshot/screenshot_2.png)
-![img](screenshot/screenshot_3.png)
-![img](screenshot/screenshot_4.png)
-![img](screenshot/screenshot_5.png)
+![img](screenshot/Screenshot_1.png)
+![img](screenshot/Screenshot_2.png)
+![img](screenshot/Screenshot_3.png)
+![img](screenshot/Screenshot_4.png)
+![img](screenshot/Screenshot_5.png)
 
 ###遗留功能：
 1、按日期浏览
