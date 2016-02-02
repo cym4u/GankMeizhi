@@ -8,7 +8,7 @@ import java.util.List;
 import cn.chenyuanming.gankmeizhi.application.GankApplication;
 
 /**
- * Created by Administrator on 2016/1/28.
+ * Created by Chen Yuanming on 2016/1/28.
  */
 public class DbHelper {
     private static DbHelper helper;

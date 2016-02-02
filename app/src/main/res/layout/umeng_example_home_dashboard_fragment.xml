@@ -1,0 +1,26 @@
+<com.umeng.ui.widget.DashboardLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFFFF" >
+
+    <Button
+        android:id="@+id/umeng_example_home_btn_analytics"
+        style="@style/DashboardButton"
+        android:text="@string/umeng_example_home_btn_analytics" />
+
+    <Button
+        android:id="@+id/umeng_example_home_btn_update"
+        style="@style/DashboardButton"
+        android:text="@string/umeng_example_home_btn_update" />
+
+    <Button
+        android:id="@+id/umeng_example_home_btn_fb"
+        style="@style/DashboardButton"
+        android:text="@string/umeng_example_home_btn_fb" />
+
+    <Button
+        android:id="@+id/umeng_example_home_btn_plus"
+        style="@style/DashboardButton"
+        android:text="@string/umeng_example_home_btn_plus" />
+
+</com.umeng.ui.widget.DashboardLayout>

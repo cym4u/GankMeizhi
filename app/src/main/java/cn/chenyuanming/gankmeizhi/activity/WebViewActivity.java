@@ -33,7 +33,7 @@ import cn.chenyuanming.gankmeizhi.utils.DbHelper;
 import cn.chenyuanming.gankmeizhi.utils.ShareUtils;
 
 /**
- * Created by Administrator on 2016/1/28.
+ * Created by Chen Yuanming on 2016/1/28.
  */
 public class WebViewActivity extends BaseActivity {
     @Bind(R.id.loadingFrame)
@@ -65,9 +65,12 @@ public class WebViewActivity extends BaseActivity {
 
         String url = getIntent().getStringExtra("url");
         objectId = getIntent().getStringExtra("objectId");
-//        if(!url.contains("github.com")){
-//            webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-//        }
+        boolean useCache = getIntent().getBooleanExtra("useCache", true);
+        if (useCache) {
+            webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        } else {
+            webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        }
         webView.loadUrl(url);
     }
 
@@ -116,7 +119,7 @@ public class WebViewActivity extends BaseActivity {
                 return true;
             case R.id.action_share:
                 //TODO
-                ShareUtils.share(this, "");
+                ShareUtils.share(this, webView.getTitle() + " " + webView.getUrl());
                 return true;
             case R.id.action_favorite:
                 onFavoriteClicked(item, favorite.favorites, objectId);

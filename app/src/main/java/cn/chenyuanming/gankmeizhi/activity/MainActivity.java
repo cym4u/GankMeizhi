@@ -14,14 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.umeng.update.UmengUpdateAgent;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cn.chenyuanming.gankmeizhi.PrefetchService;
 import cn.chenyuanming.gankmeizhi.R;
 import cn.chenyuanming.gankmeizhi.fragment.GankFragment;
+import cn.chenyuanming.gankmeizhi.utils.ClipboardHelper;
+import cn.chenyuanming.gankmeizhi.utils.ToastUtil;
 
 public class MainActivity extends AppCompatActivity {
     @Bind(R.id.drawerLayout)
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        UmengUpdateAgent.update(this);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setupViewPager(viewPager);
         viewPager.setCurrentItem(getIntent().getIntExtra(EXTRA_FRAG_TYPE, DEFAULT_FRAG));
         tabLayout.setupWithViewPager(viewPager);
-        startService(new Intent(this, PrefetchService.class));
+//        startService(new Intent(this, PrefetchService.class));
     }
 
     @Override
@@ -83,41 +87,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupDrawerContent(final NavigationView navigationView) {
+        navigationView.getHeaderView(0).findViewById(R.id.nav_weibo).setOnClickListener(v -> {
+            ClipboardHelper.copy(MainActivity.this, getResources().getString(R.string.weibo));
+            ToastUtil.showShortToast("微博地址[http://weibo.com/123466678]已经复制到剪贴板╮(╯_╰)╭");
+        });
         navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        menuItem.setChecked(true);
-                        switch (menuItem.getItemId()) {
-                            case R.id.nav_all:
-                                viewPager.setCurrentItem(0);
-                                drawerLayout.closeDrawers();
-                                return true;
-                            case R.id.nav_mm:
-                                viewPager.setCurrentItem(1);
-                                drawerLayout.closeDrawers();
-                                return true;
-                            case R.id.nav_android:
-                                viewPager.setCurrentItem(2);
-                                drawerLayout.closeDrawers();
-                                return true;
-                            case R.id.nav_ios:
-                                viewPager.setCurrentItem(3);
-                                drawerLayout.closeDrawers();
-                                return true;
-                            case R.id.nav_github:
-                                drawerLayout.closeDrawers();
-                                jump2Url("https://github.com/login");
-                                return true;
-                            case R.id.nav_trending:
-                                drawerLayout.closeDrawers();
-                                jump2Url("https://github.com/trending?l=java");
-                                return true;
+                menuItem -> {
+                    switch (menuItem.getItemId()) {
+                        case R.id.nav_avatar:
+                        case R.id.nav_weibo:
 
-                            default:
-                                return true;
-                        }
+                            break;
+                        case R.id.nav_all:
+                            viewPager.setCurrentItem(0);
+                            drawerLayout.closeDrawers();
+                            break;
+                        case R.id.nav_mm:
+                            viewPager.setCurrentItem(1);
+                            drawerLayout.closeDrawers();
+                            break;
+                        case R.id.nav_android:
+                            viewPager.setCurrentItem(2);
+                            drawerLayout.closeDrawers();
+                            break;
+                        case R.id.nav_ios:
+                            viewPager.setCurrentItem(3);
+                            drawerLayout.closeDrawers();
+                            break;
+                        case R.id.nav_github:
+                            drawerLayout.closeDrawers();
+                            jump2Url("https://github.com/login");
+                            break;
+                        case R.id.nav_trending:
+                            drawerLayout.closeDrawers();
+                            jump2Url("https://github.com/trending?l=java");
+                            break;
+                        case R.id.nav_about:
+                            drawerLayout.closeDrawers();
+                            startActivity(new Intent(this, AboutActivity.class));
+                            break;
+
+                        default:
+                            return true;
                     }
+                    return true;
                 });
     }
 

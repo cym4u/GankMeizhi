@@ -11,13 +11,8 @@
     android:layout_marginTop="5dp"
     card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="10dp"
-    card_view:cardElevation="24dp">
+    card_view:cardElevation="14dp">
 
-    <!--<de.hdodenhof.circleimageview.CircleImageView-->
-    <!--android:id="@+id/avatar"-->
-    <!--android:layout_width="@dimen/list_item_avatar_size"-->
-    <!--android:layout_height="@dimen/list_item_avatar_size"-->
-    <!--android:layout_margin="16dp"/>-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,24 +37,33 @@
                 tools:text="Android" />
 
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:padding="8.5dp"
-                android:textColor="#333333"
-                android:textSize="15sp"
-                tools:text="CoCoin是一款记账APP，有记账、多种方式显示支出占比和支出变化、云同步、智能提醒等功能。" />
-
-            <ImageView
-                android:id="@+id/iv_meizhi"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:padding="6dp"
-                android:visibility="gone"
-                tools:visibility="visible" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:padding="8.5dp"
+            android:textColor="#333333"
+            android:textSize="15sp"
+            tools:text="CoCoin是一款记账APP，有记账、多种方式显示支出占比和支出变化、云同步、智能提醒等功能。" />
+
+        <ImageView
+            android:id="@+id/iv_meizhi"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:padding="6dp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:padding="6dp"
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -82,6 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="14.5dp"
+                android:singleLine="true"
                 android:textColor="#bfc8d6"
                 tools:text="by \@KeepCoding" />
 

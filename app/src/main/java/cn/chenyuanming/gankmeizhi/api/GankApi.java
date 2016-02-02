@@ -18,7 +18,7 @@ import retrofit.http.Path;
 import rx.Observable;
 
 /**
- * Created by Administrator on 2016/1/25.
+ * Created by Chen Yuanming on 2016/1/25.
  */
 public class GankApi {
     private static GankApi instance;

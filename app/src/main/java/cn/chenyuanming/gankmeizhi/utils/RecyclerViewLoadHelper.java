@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 /**
- * Created by Administrator on 2016/1/28.
+ * Created by Chen Yuanming on 2016/1/28.
  */
 public class RecyclerViewLoadHelper {
 

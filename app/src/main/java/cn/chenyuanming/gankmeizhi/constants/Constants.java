@@ -1,7 +1,7 @@
 package cn.chenyuanming.gankmeizhi.constants;
 
 /**
- * Created by Administrator on 2016/1/25.
+ * Created by Chen Yuanming on 2016/1/25.
  */
 public interface Constants {
     int LIMIT = 50;

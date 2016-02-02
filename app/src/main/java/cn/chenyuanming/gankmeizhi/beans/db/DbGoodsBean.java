@@ -11,7 +11,7 @@ import java.util.List;
 import cn.chenyuanming.gankmeizhi.beans.CommonGoodsBean;
 
 /**
- * Created by Administrator on 2016/1/25.
+ * Created by Chen Yuanming on 2016/1/25.
  */
 @Table("goods")
 public class DbGoodsBean implements Serializable {

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.TreeSet;
 
 /**
- * Created by Administrator on 2016/1/28.
+ * Created by Chen Yuanming on 2016/1/28.
  */
 @Table("ReadArticles")
 public class ReadArticles implements Serializable {

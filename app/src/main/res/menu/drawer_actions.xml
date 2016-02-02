@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (C) 2015 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,28 +19,34 @@
         <item
             android:id="@+id/nav_all"
             android:icon="@drawable/ic_home"
-            android:title="@string/nav_all"/>
+            android:title="@string/nav_all" />
         <item
             android:id="@+id/nav_mm"
             android:icon="@drawable/ic_meizhi"
-            android:title="@string/nav_mm"/>
+            android:title="@string/nav_mm" />
         <item
             android:id="@+id/nav_android"
             android:icon="@drawable/ic_android"
-            android:title="@string/nav_android"/>
+            android:title="@string/nav_android" />
         <item
             android:id="@+id/nav_ios"
             android:icon="@drawable/ic_ios"
-            android:title="@string/nav_ios"/>
+            android:title="@string/nav_ios" />
         <item
             android:id="@+id/nav_github"
             android:icon="@drawable/ic_github"
-            android:title="@string/nav_github_login"/>
+            android:title="@string/nav_github_login" />
         <item
             android:id="@+id/nav_trending"
             android:icon="@drawable/ic_trending"
-            android:title="@string/nav_trending"/>
+            android:title="@string/nav_trending" />
     </group>
 
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_about"
+            android:title="@string/nav_about" />
+    </group>
 
 </menu>

@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
+import com.umeng.analytics.MobclickAgent;
 
 /**
- * Created by Administrator on 2016/2/1.
+ * Created by Chen Yuanming on 2016/2/1.
  */
 public abstract class BaseActivity extends AppCompatActivity {
     @Override
@@ -27,5 +28,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         SwipeBackHelper.onDestroy(this);
     }
 
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getSimpleName());
+        MobclickAgent.onResume(this);
+    }
 
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
+        MobclickAgent.onPause(this);
+    }
 }

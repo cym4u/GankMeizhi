@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="5dp" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/update_process_text1"
+            android:textColor="#000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/update_process_text2"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/auto_popup_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auto_popup_text_true"
+            android:textColor="#f00" />
+
+        <RadioGroup
+            android:id="@+id/auto_popup_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/btn_auto_popup_true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/true_text" />
+
+            <RadioButton
+                android:id="@+id/btn_auto_popup_false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/false_text" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/update_listener_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_process_text3"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/update_listener_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_listener_null"
+                android:textColor="#f00" />
+
+            <CheckBox
+                android:id="@+id/update_listener_check"
+                android:layout_width="fill_parent"
+                android:layout_height="32dp"
+                android:button="@drawable/umeng_update_button_check_selector"
+                android:text="@string/update_listener_text"
+                android:textColor="#000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/check_update_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_process_text4"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/auto_update_code"
+                android:textColor="#f00" />
+
+            <Button
+                android:id="@+id/umeng_example_update_btn_check_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_check" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/update_return_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/update_process_text5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_process_text5"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/update_return_code1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_process_text5"
+                android:text="@string/update_return_code"
+                android:textColor="#f00" />
+
+            <TextView
+                android:id="@+id/code_space_text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_return_code1"
+                android:text="@string/code_space"
+                android:textColor="#f00"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/update_result_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_return_code1"
+                android:layout_toRightOf="@id/code_space_text1"
+                android:text="@string/update_result_yes"
+                android:textColor="#f00" />
+
+            <TextView
+                android:id="@+id/code_space_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_result_code"
+                android:layout_toRightOf="@id/code_space_text1"
+                android:text="@string/code_space"
+                android:textColor="#f00"
+                android:visibility="invisible" />
+
+            <LinearLayout
+                android:id="@+id/update_process_code_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_result_code"
+                android:layout_toRightOf="@id/code_space_text2"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/update_toast_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_toast_yes"
+                    android:textColor="#f00" />
+
+                <TextView
+                    android:id="@+id/update_show_ui_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_dialog_code"
+                    android:textColor="#f00"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/update_result_end_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_process_code_layout"
+                android:layout_toRightOf="@id/code_space_text1"
+                android:text="@string/update_code_end"
+                android:textColor="#f00" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/update_result_end_text"
+                android:text="@string/update_code_end"
+                android:textColor="#f00" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/diy_update_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_process_text6"
+                android:textColor="#000" />
+
+            <RadioGroup
+                android:id="@+id/update_plan_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/btn_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_default" />
+
+                <RadioButton
+                    android:id="@+id/btn_custom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_custom" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/update_default_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_process_text7"
+                    android:textColor="#000" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_dialog_code"
+                    android:textColor="#f00" />
+
+                <Button
+                    android:id="@+id/umeng_example_update_btn_show_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_show_dialog" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/show_notification_code"
+                    android:textColor="#f00" />
+
+                <Button
+                    android:id="@+id/umeng_example_update_btn_show_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_show_notification" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/update_custom_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_process_text8"
+                    android:textColor="#000" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/is_ignore_code"
+                    android:textColor="#f00" />
+                
+                <Button
+                    android:id="@+id/umeng_example_update_btn_is_ignore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_is_ignore" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/download_file_code"
+                    android:textColor="#f00" />
+                
+                <Button
+                    android:id="@+id/umeng_example_update_btn_download_file"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_download_file" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/update_process_text9"
+                    android:textColor="#000" />
+                
+                <Button
+                    android:id="@+id/umeng_example_update_btn_show_ui"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_show_ui" />
+                
+                <TextView
+                    android:id="@+id/update_tip_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_download_code"
+                    android:textColor="#f00" />
+                
+                <Button
+                    android:id="@+id/umeng_example_update_btn_start_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_start_download" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/start_install_code"
+                    android:textColor="#f00" />
+                
+                <Button
+                    android:id="@+id/umeng_example_update_btn_start_install"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_start_install" />
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ignore_update_code"
+                    android:textColor="#f00" />
+                
+                <Button
+                    android:id="@+id/umeng_example_update_btn_ignore_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btn_ignore_update" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

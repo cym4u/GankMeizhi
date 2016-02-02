@@ -31,12 +31,11 @@ import cn.chenyuanming.gankmeizhi.beans.db.DbGoodsBean;
 import cn.chenyuanming.gankmeizhi.constants.Constants;
 import cn.chenyuanming.gankmeizhi.decoration.SpacesItemDecoration;
 import cn.chenyuanming.gankmeizhi.utils.DbHelper;
-import cn.chenyuanming.gankmeizhi.utils.ToastUtil;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
-public class GankFragment extends Fragment {
+public class GankFragment extends BaseFragment {
     @Bind(R.id.recyclerview)
     RecyclerView recyclerView;
 
@@ -96,33 +95,41 @@ public class GankFragment extends Fragment {
             //timeout
             Observable.timer(10, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).subscribe(time -> swipeRefreshLayout.setRefreshing(false));
 
-            if (direction == SwipyRefreshLayoutDirection.TOP) {
-                currentPage = Constants.START;
-                if (allAdapter != null) {
-                    allAdapter.getDatas().clear();
-                }
-                if (meizhiAdapter != null) {
-                    meizhiAdapter.getDatas().clear();
-                }
-            }
-            switch (thisFragType) {
-                case FRAG_TYPE_ALL:
-                    dbGoodsBean.allResults.clear();
-                    break;
-                case FRAG_TYPE_MEIZHI:
-                    dbGoodsBean.meizhiResults.clear();
-                    break;
-                case FRAG_TYPE_ANDROID:
-                    dbGoodsBean.androidResults.clear();
-                    break;
-                case FRAG_TYPE_IOS:
-                    dbGoodsBean.iosResults.clear();
-                    break;
-            }
+            clearAdapterCache(direction);
+            clearDbCache();
             loadData(currentPage);
         });
 
 
+    }
+
+    private void clearDbCache() {
+        switch (thisFragType) {
+            case FRAG_TYPE_ALL:
+                dbGoodsBean.allResults.clear();
+                break;
+            case FRAG_TYPE_MEIZHI:
+                dbGoodsBean.meizhiResults.clear();
+                break;
+            case FRAG_TYPE_ANDROID:
+                dbGoodsBean.androidResults.clear();
+                break;
+            case FRAG_TYPE_IOS:
+                dbGoodsBean.iosResults.clear();
+                break;
+        }
+    }
+
+    private void clearAdapterCache(SwipyRefreshLayoutDirection direction) {
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            currentPage = Constants.START;
+            if (allAdapter != null) {
+                allAdapter.getDatas().clear();
+            }
+            if (meizhiAdapter != null) {
+                meizhiAdapter.getDatas().clear();
+            }
+        }
     }
 
     private void setupAdapter() {
@@ -159,11 +166,20 @@ public class GankFragment extends Fragment {
 
     private void showNoNetWorkToast(Throwable e) {
         Log.d(TAG, "showNoNetWorkToast() called with: " + "e = [" + e + "]");
-        ToastUtil.showShortToast("网络不给力，请稍后再试");
+//        ToastUtil.showShortToast("网络不给力，请稍后再试");
     }
 
     private boolean isLoadCache() {
+        List<CommonGoodsBean.Results> datas = loadDataFromDb();
+        if (datas != null && datas.size() > 0) {
+            currentPage = datas.size() / Constants.LIMIT; //如果有缓存,加载更多处理
+            setupRecyclerView(datas);
+            return true;
+        }
+        return false;
+    }
 
+    private List<CommonGoodsBean.Results> loadDataFromDb() {
         DbGoodsBean dbGoodsBean = DbHelper.getHelper().getData(DbGoodsBean.class).get(0);
         List<CommonGoodsBean.Results> datas = new ArrayList<>();
         switch (thisFragType) {
@@ -180,11 +196,7 @@ public class GankFragment extends Fragment {
                 datas = dbGoodsBean.iosResults;
                 break;
         }
-        if (datas != null && datas.size() > 0) {
-            setupRecyclerView(datas);
-            return true;
-        }
-        return false;
+        return datas;
     }
 
     DbGoodsBean dbGoodsBean = DbHelper.getHelper().getData(DbGoodsBean.class).get(0);
@@ -194,24 +206,28 @@ public class GankFragment extends Fragment {
         return goodsBean -> {
 
             setupRecyclerView(goodsBean.results);
-            switch (thisFragType) {
-                case FRAG_TYPE_ALL:
-                    dbGoodsBean.allResults.addAll(goodsBean.results);
-                    break;
-                case FRAG_TYPE_MEIZHI:
-                    dbGoodsBean.meizhiResults.addAll(goodsBean.results);
-                    break;
-                case FRAG_TYPE_ANDROID:
-                    dbGoodsBean.androidResults.addAll(goodsBean.results);
-                    break;
-                case FRAG_TYPE_IOS:
-                    dbGoodsBean.iosResults.addAll(goodsBean.results);
-                    break;
-            }
-
-            DbHelper.getHelper().getLiteOrm().save(dbGoodsBean);
+            saveData2Db(goodsBean);
             Log.i(TAG, thisFragType + "onCreateView: " + goodsBean.results);
         };
+    }
+
+    private void saveData2Db(CommonGoodsBean goodsBean) {
+        switch (thisFragType) {
+            case FRAG_TYPE_ALL:
+                dbGoodsBean.allResults.addAll(goodsBean.results);
+                break;
+            case FRAG_TYPE_MEIZHI:
+                dbGoodsBean.meizhiResults.addAll(goodsBean.results);
+                break;
+            case FRAG_TYPE_ANDROID:
+                dbGoodsBean.androidResults.addAll(goodsBean.results);
+                break;
+            case FRAG_TYPE_IOS:
+                dbGoodsBean.iosResults.addAll(goodsBean.results);
+                break;
+        }
+
+        DbHelper.getHelper().getLiteOrm().save(dbGoodsBean);
     }
 
     private void setupRecyclerView(List<CommonGoodsBean.Results> results) {

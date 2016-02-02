@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ddd"
+    android:padding="5dp" >
+
+    <LinearLayout
+        android:id="@+id/umeng_example_update_check_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/umeng_example_update_btn_auto_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/auto_update" />
+
+        <Button
+            android:id="@+id/umeng_example_update_btn_force_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/force_update" />
+
+        <Button
+            android:id="@+id/umeng_example_update_btn_silent_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/silent_update" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/umeng_example_update_check_update"
+        android:requiresFadingEdge="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text1"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text2"
+                android:textColor="#000" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/default_text"
+                android:textColor="#f00" />
+
+            <Button
+                android:id="@+id/umeng_example_update_btn_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_default" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text3"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/wifi_only_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wifi_only_text_true"
+                android:textColor="#f00" />
+
+            <RadioGroup
+                android:id="@+id/wifi_only_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/btn_wifi_only_true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/true_text" />
+
+                <RadioButton
+                    android:id="@+id/btn_wifi_only_false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/false_text" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text4_1"
+                android:textColor="#000" />
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text4_2"
+                android:textColor="#f00" />
+
+            <TextView
+                android:id="@+id/delta_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/delta_text_true"
+                android:textColor="#f00" />
+
+            <RadioGroup
+                android:id="@+id/delta_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/btn_delta_true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/true_text" />
+
+                <RadioButton
+                    android:id="@+id/btn_delta_false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/false_text" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text5"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/auto_popup_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/auto_popup_text_true"
+                android:textColor="#f00" />
+
+            <RadioGroup
+                android:id="@+id/auto_popup_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/btn_auto_popup_true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/true_text" />
+
+                <RadioButton
+                    android:id="@+id/btn_auto_popup_false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/false_text" />
+            </RadioGroup>
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text7"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/rich_notification_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rich_notification_text_true"
+                android:textColor="#f00" />
+
+            <RadioGroup
+                android:id="@+id/rich_notification_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/btn_rich_notification_true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/true_text" />
+
+                <RadioButton
+                    android:id="@+id/btn_rich_notification_false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/false_text" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_setting_text6"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/style_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/style_text_dialog"
+                android:textColor="#f00" />
+
+            <RadioGroup
+                android:id="@+id/style_radiogroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <RadioButton
+                    android:id="@+id/btn_style_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dialog_text" />
+
+                <RadioButton
+                    android:id="@+id/btn_style_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/notification_text" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_callback_text3"
+                android:textColor="#000" />
+
+            <CheckBox
+                android:id="@+id/update_listener_check"
+                android:layout_width="fill_parent"
+                android:layout_height="32dp"
+                android:button="@drawable/umeng_update_button_check_selector"
+                android:text="@string/update_listener_text"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/update_listener_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/update_listener_null"
+                android:textColor="#f00" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_callback_text4"
+                android:textColor="#000" />
+
+            <CheckBox
+                android:id="@+id/dialog_listener_check"
+                android:layout_width="fill_parent"
+                android:layout_height="32dp"
+                android:button="@drawable/umeng_update_button_check_selector"
+                android:text="@string/dialog_listener_text"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/dialog_listener_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_listener_null"
+                android:textColor="#f00" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update_callback_text5"
+                android:textColor="#000" />
+
+            <CheckBox
+                android:id="@+id/download_listener_check"
+                android:layout_width="fill_parent"
+                android:layout_height="32dp"
+                android:button="@drawable/umeng_update_button_check_selector"
+                android:text="@string/download_listener_text"
+                android:textColor="#000" />
+
+            <TextView
+                android:id="@+id/download_listener_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/download_listener_null"
+                android:textColor="#f00" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

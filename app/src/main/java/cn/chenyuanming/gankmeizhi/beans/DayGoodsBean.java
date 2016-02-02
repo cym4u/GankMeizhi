@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/1/25.
+ * Created by Chen Yuanming on 2016/1/25.
  */
 public class DayGoodsBean implements Serializable {
 

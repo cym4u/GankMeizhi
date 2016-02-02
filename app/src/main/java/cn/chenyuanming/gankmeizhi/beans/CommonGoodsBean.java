@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/1/25.
+ * Created by Chen Yuanming on 2016/1/25.
  */
 public class CommonGoodsBean implements Serializable {
 
@@ -59,6 +59,27 @@ public class CommonGoodsBean implements Serializable {
                     ", createdAt='" + createdAt + '\'' +
                     ", updatedAt='" + updatedAt + '\'' +
                     '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Results)) return false;
+
+            Results results = (Results) o;
+
+            if (desc != null ? !desc.equals(results.desc) : results.desc != null) return false;
+            if (url != null ? !url.equals(results.url) : results.url != null) return false;
+            return objectId != null ? objectId.equals(results.objectId) : results.objectId == null;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = desc != null ? desc.hashCode() : 0;
+            result = 31 * result + (url != null ? url.hashCode() : 0);
+            result = 31 * result + (objectId != null ? objectId.hashCode() : 0);
+            return result;
         }
     }
 }

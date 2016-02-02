@@ -21,7 +21,7 @@ import cn.chenyuanming.gankmeizhi.activity.ShowBigImageActivity;
 import cn.chenyuanming.gankmeizhi.beans.CommonGoodsBean;
 
 /**
- * Created by Administrator on 2016/1/28.
+ * Created by Chen Yuanming on 2016/1/28.
  */
 public class MeizhiAdapter extends RecyclerView.Adapter<MeizhiAdapter.MeizhiViewHolder> {
     private List<CommonGoodsBean.Results> mDatas = new ArrayList<>();

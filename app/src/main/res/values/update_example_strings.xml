@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="umeng_update_demo_array">
+        <item>示例说明</item>
+        <item>自动更新</item>
+        <item>手动更新</item>
+        <item>静默下载</item>
+        <item>设置参数</item>
+        <item>自定义流程</item>
+    </string-array>
+    <string name="auto_update">自动更新</string>
+    <string name="force_update">手动更新</string>
+    <string name="silent_update">静默下载</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="about_update_text1">该应用示例像您展示了自动更新SDK的各种功能，三种主要的应用场景：自动更新，手动更新，静默下载。以及自动更新各种参数的作用，最后向您展示了完全自定义流程的更新如何完成。</string>
+    <string name="about_update_text2">点击左上角打开导航列表，右上角的删除按钮用来删除已经下载好的文件和取消忽略更新，您可能会需要这个功能。</string>
+    <string name="btn_check">检测更新</string>
+    <string name="auto_update_text1">自动更新示例，该情景模式下，如果处于wifi环境，会在进入页面时检测更新，并弹出对话框提示更新，只需要一行代码就可以实现:</string>
+    <string name="auto_update_code">UmengUpdateAgent.update(context);</string>
+    <string name="manual_update_text1">手动更新示例，该情景模式下，无论处于wifi环境还是移动网络环境，都会去检测更新，并且即使用户忽略了该版本也会弹出对话框提示更新，只需要一行代码就可以实现:</string>
+    <string name="manual_update_code">UmengUpdateAgent.forceUpdate(context);</string>
+    <string name="silent_update_text1">静默下载更新示例，该情景模式下，只有当wifi环境时才会去检测更新，发现更新后会在后台静默下载，下载成功时会弹出通知栏提示更新，只需要一行代码就可以实现:</string>
+    <string name="silent_update_code">UmengUpdateAgent.silentUpdate(context);</string>
+    <string name="default_text">UmengUpdateAgent.setDefault();</string>
+    <string name="btn_default">恢复默认</string>
+    <string name="true_text">true</string>
+    <string name="false_text">false</string>
+    <string name="update_setting_text1">通过这些设置函数，您可以自定义更新参数，实现不一样的更新方式。</string>
+    <string name="update_setting_text2">因为以下这些设置是静态的参数，如果在应用中不止一次调用了检测更新的方法，而每次的设置都不一样，请在每次检测更新的函数之前先恢复默认设置再设置参数，避免在其他地方设置的参数影响到这次更新。</string>
+    <string name="update_setting_text3">设置进行更新的网络环境， true(默认)只在wifi环境下检测更新， false在所有网络环境中均检测更新。</string>
+    <string name="wifi_only_text_true">UmengUpdateAgent.setUpdateOnlyWifi(true);</string>
+    <string name="wifi_only_text_false">UmengUpdateAgent.setUpdateOnlyWifi(false);</string>
+    <string name="update_setting_text4_1">设置增量/全量更新， true(默认)使用增量更新， false使用全量更新。</string>
+    <string name="update_setting_text4_2">注意：如果旧版本的apk和线上上传过的apk不完全一样，则会请求全量更新。</string>
+    <string name="delta_text_true">UmengUpdateAgent.setDeltaUpdate(true);</string>
+    <string name="delta_text_false">UmengUpdateAgent.setDeltaUpdate(false);</string>
+    <string name="update_setting_text5">设置自动弹出更新提示，如果您要自己处理更新回调，选择自己对用户进行更新提示，请关闭自动弹出提示，避免重复弹出提示。</string>
+    <string name="auto_popup_text_true">UmengUpdateAgent.setUpdateAutoPopup(true);</string>
+    <string name="auto_popup_text_false">UmengUpdateAgent.setUpdateAutoPopup(false);</string>
+    <string name="update_setting_text7">设置更新下载通知栏是否启动高级样式，高级样式在4.1及以上系统中会显示暂停/继续，取消按钮。</string>
+    <string name="rich_notification_text_true">UmengUpdateAgent.setRichNotification(true);</string>
+    <string name="rich_notification_text_false">UmengUpdateAgent.setRichNotification(false);</string>
+    <string name="update_setting_text6">设置更新提示方式，我们默认的更新提示方式有两种：对话框提示和通知栏提示，通过该方法设置更新提示的样式。\nUpdateStatus.STYLE_DIALOG(默认)使用对话框进行更新提示，\nUpdateStatus.STYLE_NOTIFICATION使用通知栏进行更新提示。</string>
+    <string name="style_text_dialog">UmengUpdateAgent.setUpdateUIStyle(UpdateStatus.STYLE_DIALOG);</string>
+    <string name="style_text_notification">UmengUpdateAgent.setUpdateUIStyle(UpdateStatus.STYLE_NOTIFICATION);</string>
+    <string name="dialog_text">UpdateStatus.STYLE_DIALOG</string>
+    <string name="notification_text">UpdateStatus.STYLE_NOTIFICATION</string>
+    <string name="update_callback_text1">您可以通过下面的方法设置回调监听，来自主处理更新检测结果，用户按键选择结果，下载状态。</string>
+    <string name="update_callback_text2">因为以下这些回调监听是静态的，如果在应用中不止一次调用了检测更新的方法，而每次的设置都不一样，请在每次检测更新的函数之前先恢复默认设置再设置回调监听，避免在其他地方设置的回调监听影响到这次更新。</string>
+    <string name="update_callback_text3">您可以设置更新回调来监听到检测更新的返回结果，自己处理检测更新的结果。</string>
+    <string name="update_listener_text">设置更新回调</string>
+    <string name="update_listener_null">UmengUpdateAgent.setUpdateListener(null);</string>
+    <string name="update_listener_not_null">UmengUpdateAgent.setUpdateListener(listener);</string>
+    <string name="update_callback_text4">您可以设置对话框按键回调接口来监听用户的按键操作，对于选择使用通知栏提醒用户更新的方式，该回调函数监听点击通知栏后弹出的对话框按键操作。</string>
+    <string name="dialog_listener_text">设置对话框按键回调</string>
+    <string name="dialog_listener_null">UmengUpdateAgent.setDialogListener(null);</string>
+    <string name="dialog_listener_not_null">UmengUpdateAgent.setDialogListener(listener);</string>
+    <string name="update_callback_text5">您可以设置下载回调接口，这样在自动更新下载APK开始，进行，结束或者失败的时候，可以使用该接口来做出相应的反应。</string>
+    <string name="download_listener_text">设置下载回调</string>
+    <string name="download_listener_null">UmengUpdateAgent.setDownloadListener(null);</string>
+    <string name="download_listener_not_null">UmengUpdateAgent.setDownloadListener(listener);</string>
+    <string name="update_process_text1">您可以自定义提醒更新的UI交互，通过设置更新回调和我们提供的功能函数也可以完成全部更新功能。下面展示完全自定义的更新流程：</string>
+    <string name="update_process_text2">首先您需要关闭自动弹窗，避免重复弹出提示。</string>
+    <string name="update_process_text3">您需要设置更新回调，来监听检测更新返回的结果，进行相应的处理。</string>
+    <string name="update_process_text4">现在检测更新，来检测是否有新版本。</string>
+    <string name="update_process_text5">检测更新返回的结果:</string>
+    <string name="update_return_code">\@Override\npublic void onUpdateReturned(int updateStatus, UpdateResponse response) {</string>
+    <string name="update_code_end">}</string>
+    <string name="code_space">\t</string>
+    <string name="update_result_yes">if (updateStatus == UpdateStatus.Yes) {</string>
+    <string name="update_toast_yes">Toast.makeText(context, "发现更新", Toast.LENGTH_SHORT).show();</string>
+    <string name="update_result_no">if (updateStatus == UpdateStatus.No) {</string>
+    <string name="update_toast_no">Toast.makeText(context, "没有更新", Toast.LENGTH_SHORT).show();</string>
+    <string name="update_result_nonewifi">if (updateStatus == UpdateStatus.NoneWifi) {</string>
+    <string name="update_toast_nonewifi">Toast.makeText(context, "没有wifi", Toast.LENGTH_SHORT).show();</string>
+    <string name="update_result_timeout">if (updateStatus == UpdateStatus.Timeout) {</string>
+    <string name="update_toast_timeout">Toast.makeText(context, "超时", Toast.LENGTH_SHORT).show();</string>
+    <string name="update_process_text6">现在您可以使用我们默认的UI展现方式来提示更新，并自动完成后续所有相应，也可以完全自己来处理更新提示和更新流程。</string>
+    <string name="update_default">默认UI</string>
+    <string name="update_custom">自定义UI</string>
+    <string name="update_process_text7">默认提供了两种方式来展示更新提示：</string>
+    <string name="btn_show_dialog">显示对话框</string>
+    <string name="btn_show_notification">显示通知栏</string>
+    <string name="show_dialog_code">UmengUpdateAgent.showUpdateDialog(context, response);</string>
+    <string name="show_notification_code">UmengUpdateAgent.showUpdateNotification(context, response);</string>
+    <string name="update_process_text8">您也可以通过这些方法来获取到展示更新信息需要的信息来自定义更新提示界面：</string>
+    <string name="is_ignore_code">UmengUpdateAgent.isIgnore(context, response);</string>
+    <string name="btn_is_ignore">确认忽略版本</string>
+    <string name="download_file_code">UmengUpdateAgent.downloadedFile(context, response);</string>
+    <string name="btn_download_file">查找已下载文件</string>
+    <string name="update_process_text9">您可以根据这些信息构建自己的通知提示。</string>
+    <string name="btn_show_ui">自定义提示</string>
+    <string name="start_download_code">UmengUpdateAgent.startDownload(context, response);</string>
+    <string name="btn_start_download">开始下载</string>
+    <string name="start_install_code">UmengUpdateAgent.startInstall(context, file);</string>
+    <string name="btn_start_install">开始安装</string>
+    <string name="ignore_update_code">UmengUpdateAgent.ignoreUpdate(context, response);</string>
+    <string name="btn_ignore_update">忽略更新</string>
+
+</resources>

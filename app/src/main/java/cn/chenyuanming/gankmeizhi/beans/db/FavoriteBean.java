@@ -6,7 +6,7 @@ import com.litesuits.orm.db.enums.AssignType;
 import java.util.TreeSet;
 
 /**
- * Created by Administrator on 2016/1/30.
+ * Created by Chen Yuanming on 2016/1/30.
  */
 public class FavoriteBean {
 
