@@ -16,11 +16,8 @@
 
 ###应用截图：
 
-![img](screenshot/Screenshot_1.png)
-![img](screenshot/Screenshot_2.png)
-![img](screenshot/Screenshot_3.png)
-![img](screenshot/Screenshot_4.png)
-![img](screenshot/Screenshot_5.png)
+![img](screenshot/meizhi.jpg)
+
 
 ###遗留功能：
 1、按日期浏览
