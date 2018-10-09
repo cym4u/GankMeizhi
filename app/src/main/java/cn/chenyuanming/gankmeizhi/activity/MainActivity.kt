@@ -15,7 +15,6 @@ import cn.chenyuanming.gankmeizhi.fragment.GankFragment
 import cn.chenyuanming.gankmeizhi.utils.ClipboardHelper
 import cn.chenyuanming.gankmeizhi.utils.ToastUtil
 import com.google.android.material.navigation.NavigationView
-import com.umeng.update.UmengUpdateAgent
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.home_viewpager.*
 import java.util.*
@@ -25,7 +24,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        UmengUpdateAgent.update(this)
         setSupportActionBar(toolbar)
 
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
